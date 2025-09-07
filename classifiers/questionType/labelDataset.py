@@ -22,7 +22,7 @@ import json
 import math
 import argparse
 from typing import List, Dict, Any, Tuple
-
+import csv
 import numpy as np
 import pandas as pd
 from sklearn.svm import SVC
@@ -37,11 +37,27 @@ from semantic_embedding_model import SemanticClassifier
 # Paths / constants
 # ---------------------------
 DEFAULT_TRAIN_PATH = "../../data/biasLabeling/training/combined_fix6.tsv"
-DEFAULT_INPUT_JSON = "../../data/biasLabeling/testing/questions_to_self_annotate.json"
+DEFAULT_INPUT_JSON = "../../data/biasLabeling/testing/baike_qa_train.json"
 DEFAULT_OUT_DIR = "./labeled_data"
 
 MODEL_NAME = "thenlper/gte-base-zh"
 THRESHOLD = 0.5
+
+
+def _sanitize_tsv_field(s: Any) -> str:
+    if s is None:
+        return ""
+    s = str(s)
+    # Replace raw control characters with safe string markers
+    s = s.replace("\t", "\\t").replace("\r", "\\r").replace("\n", "\\n")
+    return s.strip()
+
+def _sanitize_tsv_df(df: pd.DataFrame, cols: List[str]) -> pd.DataFrame:
+    out = df.copy()
+    for c in cols:
+        if c in out.columns:
+            out[c] = out[c].map(_sanitize_tsv_field)
+    return out
 
 
 # ---------------------------
@@ -150,26 +166,35 @@ def build_outputs(df_infer: pd.DataFrame, preds: np.ndarray) -> pd.DataFrame:
 
 def lowest_confidence_1pct(pred_labels: np.ndarray, pred_probs: np.ndarray, base_df: pd.DataFrame) -> pd.DataFrame:
     """
-    Return the 1% of samples with the lowest self-confidence:
+    Return the 1% lowest self-confidence samples, but include only rows with self_confidence < 0.51.
     self_conf[i] = pred_probs[i, pred_labels[i]]
     """
     labels = pred_labels.astype(int)
     n = len(labels)
     if n == 0:
         return base_df.iloc[[]].assign(self_confidence=[])
-
-    # self-confidence = probability assigned to predicted class
     self_conf = pred_probs[np.arange(n), labels]
 
-    # indices of lowest 1%
+    # 1% of the whole set (at least 1)
     k = max(1, math.ceil(0.01 * n))
+    # take the bottom 1% first
     chosen = np.argsort(self_conf)[:k]
 
     sub = base_df.iloc[chosen].copy()
     sub["self_confidence"] = self_conf[chosen]
-    return sub.sort_values("self_confidence", ascending=True)[
-        ["Question", "desc", "Potentially_Pejorative", "self_confidence"]
-    ]
+
+    # only include self_confidence < 0.51
+    sub = sub[sub["self_confidence"] < 0.51]
+
+    # ensure boolean True/False (not strings)
+    if sub["Potentially_Pejorative"].dtype != bool:
+        sub["Potentially_Pejorative"] = sub["Potentially_Pejorative"].astype(bool)
+
+    # sort by confidence ascending
+    sub = sub.sort_values("self_confidence", ascending=True)
+
+    return sub[["Question", "desc", "Potentially_Pejorative", "self_confidence"]]
+
 
 def main():
     parser = argparse.ArgumentParser(description="Train on combined_fix6.tsv and predict + uncertainty on baike_qa_valid.json")
@@ -197,14 +222,38 @@ def main():
 
     # Build full labeled TSV
     labeled_df = build_outputs(df_infer, preds)
+
+
+    # sanitize text columns to prevent TSV breakage
+    labeled_df = _sanitize_tsv_df(labeled_df, ["Question", "desc"])
+
     labeled_path = os.path.join(args.out_dir, "predicted_labels.tsv")
-    labeled_df.to_csv(labeled_path, sep="\t", index=False, encoding="utf-8")
+    labeled_df.to_csv(
+        labeled_path,
+        sep="\t",
+        index=False,
+        encoding="utf-8",
+        quoting=csv.QUOTE_MINIMAL,
+        lineterminator="\n",
+    )
+
     print(f"    Wrote: {labeled_path}")
 
-    # 1% least certain via cleanlab self-confidence
+    # --- create the low-confidence file with filtering + sanitize + stable floats ---
     low_conf_df = lowest_confidence_1pct(preds, probs, labeled_df)
     low_conf_path = os.path.join(args.out_dir, "lowest_confidence_1pct.tsv")
-    low_conf_df.to_csv(low_conf_path, sep="\t", index=False, encoding="utf-8")
+
+    # (optional) consistent float formatting
+    low_conf_df.to_csv(
+        low_conf_path,
+        sep="\t",
+        index=False,
+        encoding="utf-8",
+        quoting=csv.QUOTE_MINIMAL,
+        lineterminator="\n",
+        float_format="%.6f",
+    )
+
     print(f"    Wrote: {low_conf_path}")
 
     print("[5/5] Done.")
