@@ -162,11 +162,12 @@ class SemanticClassifier(BaseClassifier):
         self.is_fitted = True
         print("[SemanticClassifier] Model trained on the full dataset.")
 
-        return {
-            "mean_accuracy": mean_accuracy,
-            "mean_f1": mean_f1,
-            "mean_precision": mean_precision
-        }
+        if cv != 0:
+            return {
+                "mean_accuracy": mean_accuracy,
+                "mean_f1": mean_f1,
+                "mean_precision": mean_precision
+            }
 
     def predict(self, text_list: Union[List[str], str]) -> List[bool]:
         if not self.is_fitted:

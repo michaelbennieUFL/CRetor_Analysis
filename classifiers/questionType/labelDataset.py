@@ -37,7 +37,7 @@ from semantic_embedding_model import SemanticClassifier
 # Paths / constants
 # ---------------------------
 DEFAULT_TRAIN_PATH = "../../data/biasLabeling/training/combined_fix6.tsv"
-DEFAULT_INPUT_JSON = "../../data/biasLabeling/testing/baike_qa_valid.json"
+DEFAULT_INPUT_JSON = "../../data/biasLabeling/testing/questions_to_self_annotate.json"
 DEFAULT_OUT_DIR = "./labeled_data"
 
 MODEL_NAME = "thenlper/gte-base-zh"
@@ -97,10 +97,17 @@ def load_inference_set(json_path: str) -> pd.DataFrame:
         d = obj.get("desc")
         if q is None or str(q).strip().lower() in {"", "none", "nan"}:
             continue
-        rows.append({"Question": str(q), "desc": ("" if d is None else str(d))})
+        q_str = str(q)
+        d_str = "" if d is None else str(d)
+        rows.append({
+            "Question": q_str,
+            "desc": d_str,
+            "Question+Desc": f"{q_str} {d_str}"
+        })
     if not rows:
-        raise ValueError(f"No valid items found in {json_path}. Expected 'title' (and optional 'desc').")
-    return pd.DataFrame(rows, columns=["Question", "desc"])
+        raise ValueError("No valid items found in input JSON.")
+    return pd.DataFrame(rows, columns=["Question", "desc", "Question+Desc"])
+
 
 
 # ---------------------------
@@ -114,7 +121,7 @@ def train_semantic_classifier(X_train: List[str], y_train: List[int]) -> Semanti
         threshold=THRESHOLD,
     )
     # Train on full dataset; you can add CV if you want logs, but user requested full training
-    clf.train_model(X_train, y_train, cv=3)
+    clf.train_model(X_train, y_train, cv=0)
     return clf
 
 
@@ -156,6 +163,9 @@ def lowest_confidence_1pct(pred_labels: np.ndarray, pred_probs: np.ndarray, base
         return_indices_ranked_by="self_confidence",
     )
     n = len(labels)
+    print(issue_idx)
+    print("[INFO] Found {} labels.".format(n))
+    print("[INFO] Found {} issues.".format(len(issue_idx)))
     k = max(1, math.ceil(0.01 * n))
     chosen = issue_idx[:k]
 
@@ -191,7 +201,7 @@ def main():
     print(f"    Inference rows: {len(df_infer)}")
 
     print("[4/5] Predicting labels and probabilities…")
-    preds, probs = predict_with_probs(clf, df_infer["Question"].tolist())
+    preds, probs = predict_with_probs(clf, df_infer["Question+Desc"].tolist())
 
     # Build full labeled TSV
     labeled_df = build_outputs(df_infer, preds)
