@@ -298,7 +298,7 @@ def main(cfg: Config) -> None:
 
     print(f"[5/6] Finding likely label issues with cleanlab…")
     ignore_idx = load_ignore_indices(cfg.ignore_csvs)
-    issues_report = find_issues(y, pred_probs, df, cfg.text_col, cfg.label_col, cfg.out_dir, row_min=0, row_max=2651, ignore_idx=ignore_idx)
+    issues_report = find_issues(y, pred_probs, df, cfg.text_col, cfg.label_col, cfg.out_dir, row_min=0, row_max=26510, ignore_idx=ignore_idx)
     n_suspicious = int(issues_report["suspicious"].sum())
     print(f"    Found {n_suspicious} suspicious rows. Saved: {os.path.join(cfg.out_dir, 'label_issues.csv')}")
 

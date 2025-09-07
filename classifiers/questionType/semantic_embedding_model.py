@@ -146,16 +146,17 @@ class SemanticClassifier(BaseClassifier):
 
     def train_model(self, X: List[str], y: List[bool], cv: int = 5) -> Dict[str, float]:
         scoring = ['accuracy', 'f1_weighted', 'precision_weighted']
-        scores = cross_validate(self.model_pipeline, X, y, cv=cv, scoring=scoring)
+        if cv!=0:
+            scores = cross_validate(self.model_pipeline, X, y, cv=cv, scoring=scoring)
 
-        mean_accuracy = scores['test_accuracy'].mean()
-        mean_f1 = scores['test_f1_weighted'].mean()
-        mean_precision = scores['test_precision_weighted'].mean()
+            mean_accuracy = scores['test_accuracy'].mean()
+            mean_f1 = scores['test_f1_weighted'].mean()
+            mean_precision = scores['test_precision_weighted'].mean()
 
-        print(f"[SemanticClassifier] CV={cv}")
-        print(f" - Mean Accuracy: {mean_accuracy:.4f}")
-        print(f" - Mean F1 Score: {mean_f1:.4f}")
-        print(f" - Mean Precision: {mean_precision:.4f}")
+            print(f"[SemanticClassifier] CV={cv}")
+            print(f" - Mean Accuracy: {mean_accuracy:.4f}")
+            print(f" - Mean F1 Score: {mean_f1:.4f}")
+            print(f" - Mean Precision: {mean_precision:.4f}")
 
         self.model_pipeline.fit(X, y)
         self.is_fitted = True
@@ -174,6 +175,25 @@ class SemanticClassifier(BaseClassifier):
             text_list = [text_list]
         # The pipeline's predict method will use the wrapped classifier's threshold
         return self.model_pipeline.predict(text_list)
+
+    def predict_proba(self, text_list: Union[List[str], str]) -> np.ndarray:
+        if not self.is_fitted:
+            raise RuntimeError("SemanticClassifier model is not fitted yet.")
+        if not hasattr(self.model_pipeline, "predict_proba"):
+            raise AttributeError("Underlying classifier does not support predict_proba.")
+        if isinstance(text_list, str):
+            text_list = [text_list]
+        return self.model_pipeline.predict_proba(text_list)
+
+    # (optional) expose decision function too
+    def decision_function(self, text_list: Union[List[str], str]) -> np.ndarray:
+        if not self.is_fitted:
+            raise RuntimeError("SemanticClassifier model is not fitted yet.")
+        if not hasattr(self.model_pipeline, "decision_function"):
+            raise AttributeError("Underlying classifier does not support decision_function.")
+        if isinstance(text_list, str):
+            text_list = [text_list]
+        return self.model_pipeline.decision_function(text_list)
 
 
 #############################
