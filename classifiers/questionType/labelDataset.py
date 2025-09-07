@@ -150,34 +150,26 @@ def build_outputs(df_infer: pd.DataFrame, preds: np.ndarray) -> pd.DataFrame:
 
 def lowest_confidence_1pct(pred_labels: np.ndarray, pred_probs: np.ndarray, base_df: pd.DataFrame) -> pd.DataFrame:
     """
-    Use cleanlab's self-confidence to identify least-certain items.
-    For unlabeled data, we treat the predicted label as the 'given' label;
-    self-confidence = p(model assigns to that predicted class).
+    Return the 1% of samples with the lowest self-confidence:
+    self_conf[i] = pred_probs[i, pred_labels[i]]
     """
-    # Cleanlab wants labels in {0,1,...} and pred_probs with same columns.
     labels = pred_labels.astype(int)
-    # Compute indices ranked by self-confidence (lowest first) using cleanlab
-    issue_idx = find_label_issues(
-        labels=labels,
-        pred_probs=pred_probs,
-        return_indices_ranked_by="self_confidence",
-    )
     n = len(labels)
-    print(issue_idx)
-    print("[INFO] Found {} labels.".format(n))
-    print("[INFO] Found {} issues.".format(len(issue_idx)))
+    if n == 0:
+        return base_df.iloc[[]].assign(self_confidence=[])
+
+    # self-confidence = probability assigned to predicted class
+    self_conf = pred_probs[np.arange(n), labels]
+
+    # indices of lowest 1%
     k = max(1, math.ceil(0.01 * n))
-    chosen = issue_idx[:k]
+    chosen = np.argsort(self_conf)[:k]
 
-    # Build a small frame with the same columns; keep order by increasing uncertainty
     sub = base_df.iloc[chosen].copy()
-    # Add the self-confidence column to make it inspectable
-    self_conf = pred_probs[np.arange(n), labels][chosen]
-    sub["self_confidence"] = self_conf
-    # Sort by self-confidence ascending (lowest certainty first)
-    sub = sub.sort_values("self_confidence", ascending=True)
-    return sub[["Question", "desc", "Potentially_Pejorative", "self_confidence"]]
-
+    sub["self_confidence"] = self_conf[chosen]
+    return sub.sort_values("self_confidence", ascending=True)[
+        ["Question", "desc", "Potentially_Pejorative", "self_confidence"]
+    ]
 
 def main():
     parser = argparse.ArgumentParser(description="Train on combined_fix6.tsv and predict + uncertainty on baike_qa_valid.json")
