@@ -131,7 +131,7 @@ class SemanticClassifier(BaseClassifier):
     the decision threshold to favor higher precision.
     """
 
-    def __init__(self, model=None, embedding_model_name="thenlper/gte-base-zh", debug=False, threshold=0.95):
+    def __init__(self, model=None, embedding_model_name="lier007/xiaobu-embedding-v2", debug=False, threshold=0.95):
         if model is None:
             model = SVC(kernel='linear', probability=True)
         # Wrap the model with ThresholdClassifier to adjust its threshold
@@ -197,18 +197,6 @@ semantic_classifiers = {
         debug=False,
         threshold=custom_threshold
     ),
-    "Gaussian Process": SemanticClassifier(
-        model=GaussianProcessClassifier(1.0 * RBF(1.0), random_state=42),
-        embedding_model_name=model_name,
-        debug=False,
-        threshold=custom_threshold
-    ),
-    "MLP (Neural Net)": SemanticClassifier(
-        model=MLPClassifier(alpha=1, max_iter=1000, random_state=42),
-        embedding_model_name=model_name,
-        debug=False,
-        threshold=custom_threshold
-    ),
     "SVM (Linear Kernel)": SemanticClassifier(
         model=SVC(kernel='linear', probability=True),
         embedding_model_name=model_name,
@@ -255,7 +243,7 @@ semantic_classifiers = {
 #############################
 if __name__ == "__main__":
     # Load the combined TSV dataset
-    data_df = pd.read_csv("../../data/biasLabeling/training/combined.tsv", sep="\t")
+    data_df = pd.read_csv("../../data/biasLabeling/training/combined_fix6.tsv", sep="\t")
     # Assuming "Question" column has the text and "Potentially_Pejorative" is a label that is "Potentially" if True and "None" or empty if False.
     X = data_df["Question"].tolist()
     # Convert target: non-empty (and not "None") -> True, else False.

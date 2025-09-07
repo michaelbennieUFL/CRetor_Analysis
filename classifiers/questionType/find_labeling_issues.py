@@ -17,11 +17,12 @@ Requirements:
 """
 
 import argparse
+import dataclasses
 import os
 import sys
 import json
 from dataclasses import dataclass, asdict
-from typing import List, Tuple, Optional, Dict
+from typing import List, Tuple, Optional, Dict, Set
 
 import numpy as np
 import pandas as pd
@@ -30,6 +31,26 @@ from sklearn.model_selection import StratifiedKFold, cross_val_predict
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report
 from sentence_transformers import SentenceTransformer
+from sklearn.svm import SVC
+
+
+
+def load_ignore_indices(csv_paths: Tuple[str, ...]) -> Set[int]:
+    ignore: Set[int] = set()
+    for pth in csv_paths:
+        if not pth:
+            continue
+        if not os.path.exists(pth):
+            print(f"[warn] ignore list file not found: {pth}")
+            continue
+        df = pd.read_csv(pth)
+        if "row_index" not in df.columns:
+            print(f"[warn] file {pth} missing 'row_index' column; skipping.")
+            continue
+        # coerce to ints safely
+        ignore.update(pd.to_numeric(df["row_index"], errors="coerce").dropna().astype(int).tolist())
+        print(ignore)
+    return ignore
 
 
 # ------------------------------
@@ -47,6 +68,7 @@ class Config:
     out_dir: str = "./label_issue_outputs"
     cache_embeddings: bool = True
     cache_pred_probs: bool = True
+    ignore_csvs: Tuple[str, ...] = ()
 
 
 # ------------------------------
@@ -116,7 +138,7 @@ def get_oof_pred_probs(
     if cache and os.path.exists(pred_path):
         return np.load(pred_path)
 
-    clf = LogisticRegression(max_iter=2000, n_jobs=None)
+    clf = SVC(C=1,  probability=True, class_weight="balanced", random_state=random_state)
     cv = StratifiedKFold(n_splits=cv_folds, shuffle=True, random_state=random_state)
     # For cleanlab we need calibrated class probabilities for all samples (out-of-sample)
     pred_probs = cross_val_predict(
@@ -144,6 +166,7 @@ def find_issues(
     out_dir: str,
     row_min: Optional[int] = None,
     row_max: Optional[int] = None,
+    ignore_idx: Optional[Set[int]] = None,
 ) -> pd.DataFrame:
     issue_idx = find_label_issues(
         labels=y,
@@ -165,6 +188,18 @@ def find_issues(
     })
 
     report["suspicious"] = False
+
+
+
+    given_label_probs = pred_probs[np.arange(len(y)), y]
+    threshold = 0.3 # flag anything below 30% confidence
+    issue_idx = np.where(given_label_probs < threshold)[0]
+    if ignore_idx:
+        issue_idx = [i for i in issue_idx if i not in ignore_idx]
+
+
+    top_n = 30
+    issue_idx = issue_idx[:top_n]
     report.loc[issue_idx, "suspicious"] = True
 
     # 🔹 Apply range filter if provided
@@ -225,7 +260,7 @@ def parse_args() -> Config:
     p = argparse.ArgumentParser(description="Automatically find likely label issues with cleanlab.")
     p.add_argument("--tsv", required=True, help="Path to TSV with columns Question and Potentially_Pejorative")
     p.add_argument("--embed_model", default="thenlper/gte-base-zh", help="SentenceTransformer model name")
-    p.add_argument("--cv", type=int, default=10, help="Number of CV folds")
+    p.add_argument("--cv", type=int, default=20, help="Number of CV folds")
     p.add_argument("--out_dir", default="./label_issue_outputs", help="Output directory")
     p.add_argument("--no_cache", action="store_true", help="Do not cache embeddings/predictions")
     args = p.parse_args()
@@ -262,7 +297,8 @@ def main(cfg: Config) -> None:
     )
 
     print(f"[5/6] Finding likely label issues with cleanlab…")
-    issues_report = find_issues(y, pred_probs, df, cfg.text_col, cfg.label_col, cfg.out_dir, row_min=0, row_max=2651)
+    ignore_idx = load_ignore_indices(cfg.ignore_csvs)
+    issues_report = find_issues(y, pred_probs, df, cfg.text_col, cfg.label_col, cfg.out_dir, row_min=0, row_max=2651, ignore_idx=ignore_idx)
     n_suspicious = int(issues_report["suspicious"].sum())
     print(f"    Found {n_suspicious} suspicious rows. Saved: {os.path.join(cfg.out_dir, 'label_issues.csv')}")
 
@@ -290,6 +326,16 @@ def main(cfg: Config) -> None:
 
 if __name__ == "__main__":
     cfg = parse_args()
+
+    cfg = dataclasses.replace(cfg, ignore_csvs=(
+        "../../data/biasLabeling/training/Fixes1.csv",
+        "../../data/biasLabeling/training/Fixes2.csv",
+        "../../data/biasLabeling/training/Fixes3.csv",
+        "../../data/biasLabeling/training/Fixes4.csv",
+        "../../data/biasLabeling/training/Fixes5.csv",
+        "../../data/biasLabeling/training/Fixes6.csv",
+    ))
+
     try:
         main(cfg)
     except Exception as e:
