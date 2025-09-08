@@ -264,14 +264,14 @@ semantic_classifiers = {
 #############################
 if __name__ == "__main__":
     # Load the combined TSV dataset
-    data_df = pd.read_csv("../../data/biasLabeling/training/combined_fix6.tsv", sep="\t")
+    data_df = pd.read_csv("../../data/biasLabeling/training/combined_fix_baike_STATE_2.tsv", sep="\t")
     # Assuming "Question" column has the text and "Potentially_Pejorative" is a label that is "Potentially" if True and "None" or empty if False.
     X = data_df["Question"].tolist()
     # Convert target: non-empty (and not "None") -> True, else False.
     y = [True if str(val).strip() not in ("", "None", "none", "nan", None) else False
          for val in data_df["Potentially_Pejorative"].tolist()]
 
-    cv = 20
+    cv = 5
 
     print("\n====== Testing Semantic Classifiers ======")
     # testAllParameters is assumed to run cross-validation tests for each classifier.

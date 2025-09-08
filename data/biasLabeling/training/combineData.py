@@ -44,7 +44,7 @@ def load_new(path: str) -> pd.DataFrame:
 def main():
     parser = argparse.ArgumentParser(description="Merge baike TSV into combined_fix6.tsv")
     parser.add_argument("--train", default="combined_fix6.tsv", help="Path to combined_fix6.tsv")
-    parser.add_argument("--new", default="Michael test.tsv", help="Path to baike TSV")
+    parser.add_argument("--new", default="baike_valid_fix_1.tsv", help="Path to baike TSV")
     parser.add_argument("--out", default="combined_fix_baike_1.tsv", help="Output file path")
     args = parser.parse_args()
 
@@ -53,7 +53,11 @@ def main():
 
     combined = pd.concat([df_train, df_new], ignore_index=True)
 
-    combined.to_csv(args.out, sep="\t", index=False, encoding="utf-8")
+    combined["Potentially_Pejorative"] = (
+        combined["Potentially_Pejorative"].fillna("None").replace(r"^\s*$", "None", regex=True)
+    )
+    combined.to_csv(args.out, sep="\t", index=False, encoding="utf-8", na_rep="None")
+
     print(f"Wrote {args.out} with {len(combined)} rows.")
 
 
