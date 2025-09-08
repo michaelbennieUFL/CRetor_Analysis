@@ -207,13 +207,13 @@ def upsert_row(tsv_path: str, row_name: str, values: Dict[str, float]) -> None:
 # Main
 # --------------------------
 def main():
-    start_heartbeat("TestAllModels", every_sec=60)
+    start_heartbeat("TestAllModels", every_sec=60*5)
 
     # ---- config you can tweak ----
     data_path = "../../data/biasLabeling/training/combined_fix6.tsv"
     text_col = "Question"
     label_col = "Potentially_Pejorative"
-    cv = 20
+    cv = 10
     decision_threshold = 0.5
 
     # Embedding models to test (smaller ones first)
