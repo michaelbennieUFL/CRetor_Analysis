@@ -1,17 +1,18 @@
 import json
 import numpy as np
 import pandas as pd
-from typing import List, Union, Dict
+from typing import List, Union, Dict, Iterable, Any
 
 from sentence_transformers import SentenceTransformer
-from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.base import BaseEstimator, TransformerMixin, ClassifierMixin
+from sklearn.metrics import accuracy_score, f1_score, precision_score
 from sklearn.pipeline import Pipeline
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.model_selection import cross_validate
+from sklearn.model_selection import cross_validate, StratifiedKFold
 from sklearn.neural_network import MLPClassifier
 from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.gaussian_process.kernels import RBF
@@ -197,20 +198,208 @@ class SemanticClassifier(BaseClassifier):
         return self.model_pipeline.decision_function(text_list)
 
 
+class HybridRuleSemanticClassifier(BaseEstimator, ClassifierMixin):
+    """
+    Rules-first + Semantic fallback.
+    - If any lexicon term appears literally in the text: predict True (and proba=1.0 for positive).
+    - Otherwise, use the underlying (already defined) SemanticClassifier pipeline.
+    Options:
+      hard_override=True  -> force True / 1.0 when matched
+      hard_override=False -> only boost: proba = max(model_proba, boost_floor)
+    """
+
+    def __init__(self,
+                 semantic_model,                 # e.g., an instance of your SemanticClassifier
+                 lexicon_terms: Iterable[str],   # iterable of literal terms/phrases
+                 hard_override: bool = True,
+                 boost_floor: float = 0.95):
+        self.semantic_model = semantic_model
+        self.lexicon_terms = set([t.strip() for t in lexicon_terms if str(t).strip()])  # de-dup & clean
+        self.hard_override = hard_override
+        self.boost_floor = float(boost_floor)
+        self.is_fitted_ = False
+
+    # ---- utils ----
+    def _contains_any_term(self, text: str) -> bool:
+        s = text or ""
+        # literal substring check (not regex!)
+        return any(term in s for term in self.lexicon_terms)
+
+    def _ensure_list(self, X: Union[str, List[str]]) -> List[str]:
+        return [X] if isinstance(X, str) else list(X)
+
+    # ---- sklearn API ----
+
+    def train_model(self, X: List[str], y: List[int], cv: int = 5, random_state: int = 42):
+        """
+        Cross-validate the FULL hybrid (rules + semantic) so reported scores match
+        what you'll see at inference time. Then fit on the full data.
+        Returns: dict with mean_accuracy, mean_f1, mean_precision (weighted).
+        """
+        X = list(X)
+        y = np.asarray(y, dtype=int)
+
+        if cv and cv > 1 and len(np.unique(y)) > 1:
+            skf = StratifiedKFold(n_splits=cv, shuffle=True, random_state=random_state)
+
+            accs, f1s, precs = [], [], []
+            for train_idx, val_idx in skf.split(X, y):
+                X_train = [X[i] for i in train_idx]
+                y_train = y[train_idx]
+                X_val = [X[i] for i in val_idx]
+                y_val = y[val_idx]
+
+                # Fit the underlying semantic model on THIS fold's train set
+                # (no CV inside to avoid nested CV; we just fit)
+                self.semantic_model.model_pipeline.fit(X_train, y_train)
+                self.semantic_model.is_fitted = True
+                self.is_fitted_ = True
+
+                # Predict with rules + semantic on the val set
+                y_pred = self.predict(X_val)
+
+                # Metrics (weighted)
+                accs.append(accuracy_score(y_val, y_pred))
+                f1s.append(f1_score(y_val, y_pred, average="weighted", zero_division=0))
+                precs.append(precision_score(y_val, y_pred, average="weighted", zero_division=0))
+
+            mean_accuracy = float(np.mean(accs))
+            mean_f1 = float(np.mean(f1s))
+            mean_precision = float(np.mean(precs))
+
+            print(f"[HybridRuleSemanticClassifier] CV={cv}")
+            print(f" - Mean Accuracy: {mean_accuracy:.4f}")
+            print(f" - Mean F1 Score: {mean_f1:.4f}")
+            print(f" - Mean Precision: {mean_precision:.4f}")
+        else:
+            # Not enough folds or single-class data; skip CV
+            mean_accuracy = mean_f1 = mean_precision = float("nan")
+
+        # Fit once more on FULL data so the model is ready for use
+        self.semantic_model.model_pipeline.fit(X, y)
+        self.semantic_model.is_fitted = True
+        self.is_fitted_ = True
+
+        return {
+            "mean_accuracy": mean_accuracy,
+            "mean_f1": mean_f1,
+            "mean_precision": mean_precision,
+        }
+
+    def fit(self, X: List[str], y: List[int]):
+        # Fit underlying semantic model
+        self.semantic_model.train_model(X, y, cv=0)  # disable CV here; you can do it outside as needed
+        self.is_fitted_ = True
+        return self
+
+    def predict(self, X: Union[str, List[str]]) -> np.ndarray:
+        if not self.is_fitted_:
+            raise RuntimeError("HybridRuleSemanticClassifier is not fitted yet. Call fit() first.")
+        X_list = self._ensure_list(X)
+
+        # rules-first decisions
+        rule_hits = np.array([self._contains_any_term(x) for x in X_list], dtype=bool)
+
+        # model fallback for non-hits
+        preds = np.zeros(len(X_list), dtype=int)
+        if rule_hits.any():
+            preds[rule_hits] = 1  # force positive
+
+        if (~rule_hits).any():
+            model_preds = self.semantic_model.predict([X_list[i] for i in np.where(~rule_hits)[0]])
+            preds[~rule_hits] = np.array(model_preds, dtype=int)
+
+        return preds
+
+    def predict_proba(self, X: Union[str, List[str]]) -> np.ndarray:
+        if not self.is_fitted_:
+            raise RuntimeError("HybridRuleSemanticClassifier is not fitted yet. Call fit() first.")
+        X_list = self._ensure_list(X)
+
+        # base probabilities from the semantic model
+        base_proba = self.semantic_model.predict_proba(X_list)  # shape: (n, 2) assuming [neg, pos]
+
+        # apply rule layer
+        out = base_proba.copy()
+        for i, text in enumerate(X_list):
+            if self._contains_any_term(text):
+                if self.hard_override:
+                    out[i, :] = np.array([0.0, 1.0])
+                else:
+                    # only boost positive to at least boost_floor, keep calibration-ish
+                    out[i, 1] = max(out[i, 1], self.boost_floor)
+                    out[i, 0] = 1.0 - out[i, 1]
+        return out
+
+    # optional: decision_function passthrough (only for convenience)
+    def decision_function(self, X: Union[str, List[str]]) -> np.ndarray:
+        # Define a simple mapping: use logit of predict_proba
+        proba = self.predict_proba(X)[:, 1]
+        # avoid infs
+        eps = 1e-12
+        proba = np.clip(proba, eps, 1 - eps)
+        return np.log(proba / (1 - proba))
+
+    def get_params(self, deep=True) -> Dict[str, Any]:
+        return {
+            "semantic_model": self.semantic_model,
+            "lexicon_terms": list(self.lexicon_terms),
+            "hard_override": self.hard_override,
+            "boost_floor": self.boost_floor,
+        }
+
+    def set_params(self, **params):
+        if "semantic_model" in params:
+            self.semantic_model = params["semantic_model"]
+        if "lexicon_terms" in params:
+            self.lexicon_terms = set([t.strip() for t in params["lexicon_terms"] if str(t).strip()])
+        if "hard_override" in params:
+            self.hard_override = bool(params["hard_override"])
+        if "boost_floor" in params:
+            self.boost_floor = float(params["boost_floor"])
+        return self
+
+
 #############################
 # 3. Define a Set of Semantic Classifiers with Adjusted Thresholds
 #############################
-random_state = 1
+random_state = 10
 model_name = "thenlper/gte-base-zh"
-custom_threshold = 0.8  # Adjust this value to favor higher precision
+custom_threshold = 0.5  # Adjust this value to favor higher precision
+
+
+with open("../../data/biasLabeling/externalDatasets/STATE-ToxiCN/filtered_lexicon.json", "r", encoding="utf-8") as f:
+    lexicon_json = json.load(f)
+lexicon_terms = [t["term"] for t in lexicon_json.get("terms", [])]
 
 semantic_classifiers = {
-
+    "Logistic Regression+Rules": HybridRuleSemanticClassifier(
+        semantic_model=SemanticClassifier(
+            model=LogisticRegression(max_iter=10000),
+            embedding_model_name=model_name,
+            debug=False,
+            threshold=custom_threshold
+        ),
+        lexicon_terms=lexicon_terms,
+        hard_override=False,
+        boost_floor=0.98  # used only when hard_override=False
+    ),
     "Logistic Regression": SemanticClassifier(
         model=LogisticRegression(max_iter=10000),
         embedding_model_name=model_name,
         debug=False,
         threshold=custom_threshold
+    ),
+    "SVM (C=1)+Rules": HybridRuleSemanticClassifier(
+        semantic_model=SemanticClassifier(
+            model=SVC(C=1, probability=True, random_state=42),
+            embedding_model_name=model_name,
+            debug=False,
+            threshold=custom_threshold
+        ),
+        lexicon_terms=lexicon_terms,
+        hard_override=False,
+        boost_floor=0.98  # used only when hard_override=False
     ),
     "SVM (C=1)": SemanticClassifier(
         model=SVC(C=1, probability=True, random_state=42),
@@ -264,7 +453,7 @@ semantic_classifiers = {
 #############################
 if __name__ == "__main__":
     # Load the combined TSV dataset
-    data_df = pd.read_csv("../../data/biasLabeling/training/combined_fix_baike_STATE_2.tsv", sep="\t")
+    data_df = pd.read_csv("../../data/biasLabeling/training/combined_fix_baike_STATE_3.tsv", sep="\t")
     # Assuming "Question" column has the text and "Potentially_Pejorative" is a label that is "Potentially" if True and "None" or empty if False.
     X = data_df["Question"].tolist()
     # Convert target: non-empty (and not "None") -> True, else False.
