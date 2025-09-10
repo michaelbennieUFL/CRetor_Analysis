@@ -202,7 +202,7 @@ class SemanticClassifier(BaseClassifier):
 #############################
 random_state = 1
 model_name = "thenlper/gte-base-zh"
-custom_threshold = 0.5  # Adjust this value to favor higher precision
+custom_threshold = 0.8  # Adjust this value to favor higher precision
 
 semantic_classifiers = {
 
@@ -271,7 +271,7 @@ if __name__ == "__main__":
     y = [True if str(val).strip() not in ("", "None", "none", "nan", None) else False
          for val in data_df["Potentially_Pejorative"].tolist()]
 
-    cv = 5
+    cv = 10
 
     print("\n====== Testing Semantic Classifiers ======")
     # testAllParameters is assumed to run cross-validation tests for each classifier.
