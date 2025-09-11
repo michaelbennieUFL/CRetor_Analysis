@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 """
-Train on combined_fix6.tsv and label baike_qa_valid.json, plus export the 1% least-certain subset.
+Train on combined_fix6.tsv using SVM (C=1)+Rules with Qwen/Qwen3-Embedding-8B
+and label baike_qa_valid.json, plus export the 1% least-certain subset.
 
 Outputs:
   - ./output/predicted_labels.tsv
@@ -11,7 +12,8 @@ Outputs:
       Same columns, but only the 1% with lowest self-confidence (via cleanlab)
 
 Assumptions:
-  - Your project provides: semantic_embedding_model.SemanticClassifier
+  - Your project provides: SemanticClassifier and HybridRuleSemanticClassifier
+    (from the file where you defined them), and they behave like in your snippet.
   - combined_fix6.tsv has columns: Question, Potentially_Pejorative (string; empty/None => negative)
   - baike_qa_valid.json is either JSONL (one object per line) or a JSON array.
     We expect fields: "title" (question) and "desc" (optional).
@@ -26,23 +28,30 @@ import csv
 import numpy as np
 import pandas as pd
 from sklearn.svm import SVC
-from cleanlab.filter import find_label_issues
+from cleanlab.filter import find_label_issues  # (unused, but keep if you plan to extend)
 from tqdm import tqdm
 
-# Import your existing wrapper
-from semantic_embedding_model import SemanticClassifier
-
+# ---- Import the classifiers ----
+# If these classes live in another module/file, adjust the import path accordingly.
+from semantic_embedding_model import SemanticClassifier, HybridRuleSemanticClassifier
 
 # ---------------------------
 # Paths / constants
 # ---------------------------
-DEFAULT_TRAIN_PATH = "../../data/biasLabeling/training/combined_fix6.tsv"
+DEFAULT_TRAIN_PATH = "../../data/biasLabeling/training/combined_fix_baike_STATE_3.tsv"
 DEFAULT_INPUT_JSON = "../../data/biasLabeling/testing/baike_qa_train.json"
 DEFAULT_OUT_DIR = "./labeled_data"
 
-MODEL_NAME = "thenlper/gte-base-zh"
+# Use the 8B Qwen embedding model
+MODEL_NAME = "Qwen/Qwen3-Embedding-8B"
+
+# Match your custom threshold to bias for precision/thresholding downstream of predict_proba
 THRESHOLD = 0.5
 
+# Lexicon used by the Rules layer
+LEXICON_PATH = "../../data/biasLabeling/externalDatasets/STATE-ToxiCN/filtered_lexicon.json"
+HARD_OVERRIDE = False
+BOOST_FLOOR = 0.98  # used when HARD_OVERRIDE=False
 
 def _sanitize_tsv_field(s: Any) -> str:
     if s is None:
@@ -59,13 +68,11 @@ def _sanitize_tsv_df(df: pd.DataFrame, cols: List[str]) -> pd.DataFrame:
             out[c] = out[c].map(_sanitize_tsv_field)
     return out
 
-
 # ---------------------------
 # I/O helpers
 # ---------------------------
 def ensure_dir(p: str) -> None:
     os.makedirs(p, exist_ok=True)
-
 
 def load_training_tsv(tsv_path: str) -> Tuple[List[str], List[int]]:
     df = pd.read_csv(tsv_path, sep="\t")
@@ -78,7 +85,6 @@ def load_training_tsv(tsv_path: str) -> Tuple[List[str], List[int]]:
         for v in df["Potentially_Pejorative"].tolist()
     ]
     return X, y
-
 
 def _iter_json_objects(path: str):
     """Yield dicts from either JSONL or a JSON array file."""
@@ -105,7 +111,6 @@ def _iter_json_objects(path: str):
                 except json.JSONDecodeError:
                     continue
 
-
 def load_inference_set(json_path: str) -> pd.DataFrame:
     rows = []
     for obj in _iter_json_objects(json_path):
@@ -124,27 +129,45 @@ def load_inference_set(json_path: str) -> pd.DataFrame:
         raise ValueError("No valid items found in input JSON.")
     return pd.DataFrame(rows, columns=["Question", "desc", "Question+Desc"])
 
-
+# ---------------------------
+# Lexicon helper
+# ---------------------------
+def load_lexicon_terms(path: str) -> List[str]:
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    return [t["term"] for t in data.get("terms", []) if "term" in t and str(t["term"]).strip()]
 
 # ---------------------------
-# Main logic
+# Training: SVM (C=1)+Rules on 8B embeddings
 # ---------------------------
-def train_semantic_classifier(X_train: List[str], y_train: List[int]) -> SemanticClassifier:
-    clf = SemanticClassifier(
+def train_hybrid_classifier(X_train: List[str], y_train: List[int]) -> HybridRuleSemanticClassifier:
+    """Builds SVM (C=1) semantic model on Qwen 8B embeddings and wraps with rules."""
+    # Base semantic model
+    semantic = SemanticClassifier(
         model=SVC(C=1, probability=True, random_state=42),
         embedding_model_name=MODEL_NAME,
         debug=False,
         threshold=THRESHOLD,
     )
-    # Train on full dataset; you can add CV if you want logs, but user requested full training
-    clf.train_model(X_train, y_train, cv=0)
-    return clf
+    # Load lexicon and create hybrid
+    lexicon_terms = load_lexicon_terms(LEXICON_PATH)
+    hybrid = HybridRuleSemanticClassifier(
+        semantic_model=semantic,
+        lexicon_terms=lexicon_terms,
+        hard_override=HARD_OVERRIDE,
+        boost_floor=BOOST_FLOOR
+    )
+    # Train hybrid on full dataset (no CV for this labeling script)
+    hybrid.train_model(X_train, y_train, cv=0)
+    return hybrid
 
-
+# ---------------------------
+# Inference helpers
+# ---------------------------
 def predict_proba_batched(clf, texts, batch_size=512, desc="Scoring"):
     """
     Calls clf.predict_proba(texts) in mini-batches with a tqdm progress bar.
-    Works with your SemanticClassifier that exposes predict_proba(list[str]) -> (N,2).
+    Works with HybridRuleSemanticClassifier that exposes predict_proba(list[str]) -> (N,2).
     """
     probs_list = []
     N = len(texts)
@@ -153,8 +176,8 @@ def predict_proba_batched(clf, texts, batch_size=512, desc="Scoring"):
         probs_list.append(clf.predict_proba(batch))  # shape (B, 2)
     return np.vstack(probs_list)  # (N, 2)
 
-def predict_with_probs(clf: SemanticClassifier, texts: List[str]) -> Tuple[np.ndarray, np.ndarray]:
-    probs = predict_proba_batched(clf, texts, batch_size=512, desc="Predicting")
+def predict_with_probs(clf, texts: List[str]) -> Tuple[np.ndarray, np.ndarray]:
+    probs = predict_proba_batched(clf, texts, batch_size=2048, desc="Predicting")
     preds = (probs[:, 1] >= THRESHOLD).astype(int)
     return preds, probs
 
@@ -162,7 +185,6 @@ def build_outputs(df_infer: pd.DataFrame, preds: np.ndarray) -> pd.DataFrame:
     out = df_infer.copy()
     out["Potentially_Pejorative"] = preds.astype(bool)
     return out[["Question", "desc", "Potentially_Pejorative"]]
-
 
 def lowest_confidence_1pct(pred_labels: np.ndarray, pred_probs: np.ndarray, base_df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -195,9 +217,11 @@ def lowest_confidence_1pct(pred_labels: np.ndarray, pred_probs: np.ndarray, base
 
     return sub[["Question", "desc", "Potentially_Pejorative", "self_confidence"]]
 
-
+# ---------------------------
+# Main
+# ---------------------------
 def main():
-    parser = argparse.ArgumentParser(description="Train on combined_fix6.tsv and predict + uncertainty on baike_qa_valid.json")
+    parser = argparse.ArgumentParser(description="Train SVM (C=1)+Rules (Qwen 8B) and predict + uncertainty on baike_qa_valid.json")
     parser.add_argument("--train_tsv", default=DEFAULT_TRAIN_PATH)
     parser.add_argument("--input_json", default=DEFAULT_INPUT_JSON)
     parser.add_argument("--out_dir", default=DEFAULT_OUT_DIR)
@@ -209,8 +233,8 @@ def main():
     X_train, y_train = load_training_tsv(args.train_tsv)
     print(f"    Training rows: {len(X_train)}")
 
-    print(f"[2/5] Training SemanticClassifier (SVM C=1, threshold={THRESHOLD}, emb={MODEL_NAME})")
-    clf = train_semantic_classifier(X_train, y_train)
+    print(f"[2/5] Training Hybrid (SVM C=1 + Rules, threshold={THRESHOLD}, emb={MODEL_NAME})")
+    clf = train_hybrid_classifier(X_train, y_train)
     print("    Training complete.")
 
     print(f"[3/5] Loading inference set: {args.input_json}")
@@ -222,7 +246,6 @@ def main():
 
     # Build full labeled TSV
     labeled_df = build_outputs(df_infer, preds)
-
 
     # sanitize text columns to prevent TSV breakage
     labeled_df = _sanitize_tsv_df(labeled_df, ["Question", "desc"])
@@ -236,14 +259,12 @@ def main():
         quoting=csv.QUOTE_MINIMAL,
         lineterminator="\n",
     )
-
     print(f"    Wrote: {labeled_path}")
 
     # --- create the low-confidence file with filtering + sanitize + stable floats ---
     low_conf_df = lowest_confidence_1pct(preds, probs, labeled_df)
     low_conf_path = os.path.join(args.out_dir, "lowest_confidence_1pct.tsv")
 
-    # (optional) consistent float formatting
     low_conf_df.to_csv(
         low_conf_path,
         sep="\t",
@@ -253,11 +274,9 @@ def main():
         lineterminator="\n",
         float_format="%.6f",
     )
-
     print(f"    Wrote: {low_conf_path}")
 
     print("[5/5] Done.")
-
 
 if __name__ == "__main__":
     main()
