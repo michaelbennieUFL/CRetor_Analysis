@@ -66,10 +66,17 @@ terms_step3 = [
     if in_any_sentence(t["term"], all_sentences)
 ]
 
+# ========= Step 4: remove  other items=========
+terms_step4 = [
+    t for t in terms_step3
+    if "other" not in t["category"]
+]
+
+
 # Update lexicon object
 cleaned_lexicon = {
     **{k: v for k, v in lexicon.items() if k != "terms"},
-    "terms": terms_step3,
+    "terms": terms_step4,
 }
 
 # ========= Save cleaned lexicon =========
