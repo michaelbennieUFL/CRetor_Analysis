@@ -1,6 +1,7 @@
 import json
 import pandas as pd
 import re
+import unicodedata
 from pathlib import Path
 
 # ========= Paths =========
@@ -46,6 +47,17 @@ def is_short_latin_only(term: str) -> bool:
     term = (term or "").strip()
     return bool(_SHORT_LATIN_RE.fullmatch(term))
 
+def nfkc_lower(s: str) -> str:
+    if s is None:
+        return ""
+    return unicodedata.normalize("NFKC", str(s)).lower()
+
+def definition_has_zaimouxie(t: dict) -> bool:
+    """
+    Return True if the term's definition contains '在某些' (after NFKC normalization).
+    """
+    return "在某些" in nfkc_lower(t.get("definition", ""))
+
 def in_any_sentence(term: str, sentences: pd.Series) -> bool:
     """Check if a term appears as a substring in any sentence (literal match, not regex)."""
     if not term:
@@ -61,30 +73,36 @@ def contains_lexicon_term(sentence: str, term_list) -> bool:
 none_sentences = tsv.loc[tsv["Potentially_Pejorative"] == "None", "sentence"]
 terms_step1 = [
     t for t in terms
-    if not in_any_sentence(t["term"], none_sentences)
+    if not in_any_sentence(t.get("term", ""), none_sentences)
 ]
 
 # ========= Step 2: Remove single-character terms =========
 terms_step2 = [
     t for t in terms_step1
-    if len(t["term"].strip()) > 1
+    if len((t.get("term") or "").strip()) > 1
 ]
 
 # ========= Step 2b: Remove terms that are ONLY 1–3 Latin letters (eg, YP, abc) =========
 # (Keeps terms with Chinese/mixed chars or length >= 4)
 terms_step2b = [
     t for t in terms_step2
-    if not is_short_latin_only(t["term"])
+    if not is_short_latin_only(t.get("term", ""))
+]
+
+# ========= Step 2c: Remove terms whose definition contains "在某些" =========
+terms_step2c = [
+    t for t in terms_step2b
+    if not definition_has_zaimouxie(t)
 ]
 
 # ========= Step 3: Keep only terms that appear in at least one TSV sentence =========
 all_sentences = tsv["sentence"]
 terms_step3 = [
-    t for t in terms_step2b
-    if in_any_sentence(t["term"], all_sentences)
+    t for t in terms_step2c
+    if in_any_sentence(t.get("term", ""), all_sentences)
 ]
 
-# ========= Step 4: remove  other items=========
+# ========= Step 4: remove  other items (category contains 'other') =========
 terms_step4 = [
     t for t in terms_step3
     if "other" not in str(t.get("category", "")).lower()
@@ -116,11 +134,12 @@ pot_pct  = pct_with_term(pot_df, terms_step4)
 # ========= Console report =========
 print("=== Lexicon Cleaning Report ===")
 print(f"Original terms: {len(terms)}")
-print(f"After Step 1 (remove if occurs in 'None' lines): {len(terms_step1)}")
-print(f"After Step 2 (remove single-character terms) : {len(terms_step2)}")
-print(f"After Step 2b (remove <=3-letter Latin only) : {len(terms_step2b)}")
-print(f"After Step 3 (must appear in TSV sentences)  : {len(terms_step3)}")
-print(f"After Step 4 (drop 'other' categories)        : {len(terms_step4)}")
+print(f"After Step 1 (remove if occurs in 'None' lines)    : {len(terms_step1)}")
+print(f"After Step 2 (remove single-character terms)       : {len(terms_step2)}")
+print(f"After Step 2b (remove <=3-letter Latin only)       : {len(terms_step2b)}")
+print(f"After Step 2c (remove defs containing '在某些')     : {len(terms_step2c)}")
+print(f"After Step 3 (must appear in TSV sentences)        : {len(terms_step3)}")
+print(f"After Step 4 (drop 'other' categories)             : {len(terms_step4)}")
 print()
 print("=== Coverage (contains ≥1 term) ===")
 print(f"'None' lines: {none_pct:.2f}%")
