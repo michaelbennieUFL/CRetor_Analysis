@@ -1,5 +1,6 @@
 import json
 import pandas as pd
+import re
 from pathlib import Path
 
 # ========= Paths =========
@@ -35,11 +36,21 @@ tsv["Potentially_Pejorative"] = tsv["Potentially_Pejorative"].astype(str).str.st
 terms = lexicon.get("terms", [])
 
 # ========= Utilities =========
+_SHORT_LATIN_RE = re.compile(r"^[A-Za-z]{1,3}$")
+
+def is_short_latin_only(term: str) -> bool:
+    """
+    True if the term is composed ONLY of 1–3 ASCII letters (A–Z/a–z).
+    This excludes any Chinese/mixed strings and anything length >= 4.
+    """
+    term = (term or "").strip()
+    return bool(_SHORT_LATIN_RE.fullmatch(term))
+
 def in_any_sentence(term: str, sentences: pd.Series) -> bool:
     """Check if a term appears as a substring in any sentence (literal match, not regex)."""
     if not term:
         return False
-    return sentences.astype(str).str.contains(term, na=False, regex=False).any()  # <-- changed
+    return sentences.astype(str).str.contains(term, na=False, regex=False).any()
 
 def contains_lexicon_term(sentence: str, term_list) -> bool:
     s = sentence or ""
@@ -59,19 +70,25 @@ terms_step2 = [
     if len(t["term"].strip()) > 1
 ]
 
+# ========= Step 2b: Remove terms that are ONLY 1–3 Latin letters (eg, YP, abc) =========
+# (Keeps terms with Chinese/mixed chars or length >= 4)
+terms_step2b = [
+    t for t in terms_step2
+    if not is_short_latin_only(t["term"])
+]
+
 # ========= Step 3: Keep only terms that appear in at least one TSV sentence =========
 all_sentences = tsv["sentence"]
 terms_step3 = [
-    t for t in terms_step2
+    t for t in terms_step2b
     if in_any_sentence(t["term"], all_sentences)
 ]
 
 # ========= Step 4: remove  other items=========
 terms_step4 = [
     t for t in terms_step3
-    if "other" not in t["category"]
+    if "other" not in str(t.get("category", "")).lower()
 ]
-
 
 # Update lexicon object
 cleaned_lexicon = {
@@ -90,18 +107,20 @@ pot_df  = tsv[tsv["Potentially_Pejorative"] == "Potentially"]
 def pct_with_term(df: pd.DataFrame, term_list) -> float:
     if df.empty:
         return 0.0
-    hits = df["sentence"].astype(str).apply(lambda s: contains_lexicon_term(s, term_list)).sum()  # <-- changed (astype)
+    hits = df["sentence"].astype(str).apply(lambda s: contains_lexicon_term(s, term_list)).sum()
     return 100.0 * hits / len(df)
 
-none_pct = pct_with_term(none_df, terms_step3)
-pot_pct  = pct_with_term(pot_df, terms_step3)
+none_pct = pct_with_term(none_df, terms_step4)
+pot_pct  = pct_with_term(pot_df, terms_step4)
 
 # ========= Console report =========
 print("=== Lexicon Cleaning Report ===")
 print(f"Original terms: {len(terms)}")
 print(f"After Step 1 (remove if occurs in 'None' lines): {len(terms_step1)}")
 print(f"After Step 2 (remove single-character terms) : {len(terms_step2)}")
+print(f"After Step 2b (remove <=3-letter Latin only) : {len(terms_step2b)}")
 print(f"After Step 3 (must appear in TSV sentences)  : {len(terms_step3)}")
+print(f"After Step 4 (drop 'other' categories)        : {len(terms_step4)}")
 print()
 print("=== Coverage (contains ≥1 term) ===")
 print(f"'None' lines: {none_pct:.2f}%")
