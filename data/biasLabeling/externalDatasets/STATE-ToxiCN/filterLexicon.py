@@ -56,7 +56,7 @@ def definition_has_zaimouxie(t: dict) -> bool:
     """
     Return True if the term's definition contains '在某些' (after NFKC normalization).
     """
-    return "在某些" in nfkc_lower(t.get("definition", ""))
+    return "在某些" in nfkc_lower(t.get("definition", "")) or "原本" in nfkc_lower(t.get("definition", "")) or "本意" in nfkc_lower(t.get("definition", "")) or "本为" in nfkc_lower(t.get("definition", ""))
 
 def in_any_sentence(term: str, sentences: pd.Series) -> bool:
     """Check if a term appears as a substring in any sentence (literal match, not regex)."""
@@ -137,7 +137,7 @@ print(f"Original terms: {len(terms)}")
 print(f"After Step 1 (remove if occurs in 'None' lines)    : {len(terms_step1)}")
 print(f"After Step 2 (remove single-character terms)       : {len(terms_step2)}")
 print(f"After Step 2b (remove <=3-letter Latin only)       : {len(terms_step2b)}")
-print(f"After Step 2c (remove defs containing '在某些')     : {len(terms_step2c)}")
+print(f"After Step 2c (remove defs containing '在某些/本')     : {len(terms_step2c)}")
 print(f"After Step 3 (must appear in TSV sentences)        : {len(terms_step3)}")
 print(f"After Step 4 (drop 'other' categories)             : {len(terms_step4)}")
 print()
