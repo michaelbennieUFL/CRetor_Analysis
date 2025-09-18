@@ -97,12 +97,12 @@ def main():
 
 
     def _proba_chunk(model, X_host_chunk):
-        X_dev = cp.asarray(X_host_chunk)               # send chunk to this worker's GPU
+        X_dev = cp.asarray(X_host_chunk,dtype=cp.float32)               # send chunk to this worker's GPU
         p = model.predict_proba(X_dev)[:, 1]           # cuML SVC on GPU
         return cp.asnumpy(p)                           # return to host for concatenation
 
     # split inference rows roughly evenly across workers
-    chunks = np.array_split(Xinfer, n_workers)
+    chunks = np.array_split(Xinfer, n_workers*8)
 
     # pin each chunk to a different worker/GPU for parallelism
     futures = [

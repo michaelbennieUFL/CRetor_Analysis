@@ -27,7 +27,8 @@ from typing import List, Dict, Any, Tuple
 import csv
 import numpy as np
 import pandas as pd
-from sklearn.svm import SVC
+#from sklearn.svm import SVC
+from cuml.svm import SVC
 from cleanlab.filter import find_label_issues  # (unused, but keep if you plan to extend)
 from tqdm import tqdm
 
@@ -39,8 +40,8 @@ from semantic_embedding_model import SemanticClassifier, HybridRuleSemanticClass
 # Paths / constants
 # ---------------------------
 DEFAULT_TRAIN_PATH = "../../data/biasLabeling/training/combined_fix_baike_STATE_3.tsv"
-DEFAULT_INPUT_JSON = "../../data/biasLabeling/testing/baike_qa_train.json"
-DEFAULT_OUT_DIR = "./labeled_data"
+DEFAULT_INPUT_JSON = "../../data/biasLabeling/testing/baike_qa_valid.json"
+DEFAULT_OUT_DIR = "./labeled_data_valid_cuml"
 
 # Use the 8B Qwen embedding model
 MODEL_NAME = "Qwen/Qwen3-Embedding-8B"
