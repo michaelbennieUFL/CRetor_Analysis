@@ -149,17 +149,17 @@ def train_hybrid_classifier(X_train: List[str], y_train: List[int]) -> HybridRul
         debug=False,
         threshold=THRESHOLD,
     )
-    # Load lexicon and create hybrid
-    lexicon_terms = load_lexicon_terms(LEXICON_PATH)
-    hybrid = HybridRuleSemanticClassifier(
-        semantic_model=semantic,
-        lexicon_terms=lexicon_terms,
-        hard_override=HARD_OVERRIDE,
-        boost_floor=BOOST_FLOOR
-    )
+    # # Load lexicon and create hybrid
+    # lexicon_terms = load_lexicon_terms(LEXICON_PATH)
+    # hybrid = HybridRuleSemanticClassifier(
+    #     semantic_model=semantic,
+    #     lexicon_terms=lexicon_terms,
+    #     hard_override=HARD_OVERRIDE,
+    #     boost_floor=BOOST_FLOOR
+    # )
     # Train hybrid on full dataset (no CV for this labeling script)
-    hybrid.train_model(X_train, y_train, cv=0)
-    return hybrid
+    semantic.train_model(X_train, y_train, cv=0)
+    return semantic
 
 # ---------------------------
 # Inference helpers

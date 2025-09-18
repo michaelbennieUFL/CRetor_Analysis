@@ -37,11 +37,11 @@ tsv["Potentially_Pejorative"] = tsv["Potentially_Pejorative"].astype(str).str.st
 terms = lexicon.get("terms", [])
 
 # ========= Utilities =========
-_SHORT_LATIN_RE = re.compile(r"^[A-Za-z]{1,3}$")
+_SHORT_LATIN_RE = re.compile(r"^[A-Za-z]{1,2}$")
 
 def is_short_latin_only(term: str) -> bool:
     """
-    True if the term is composed ONLY of 1–3 ASCII letters (A–Z/a–z).
+    True if the term is composed ONLY of 1–2 ASCII letters (A–Z/a–z).
     This excludes any Chinese/mixed strings and anything length >= 4.
     """
     term = (term or "").strip()
@@ -82,8 +82,8 @@ terms_step2 = [
     if len((t.get("term") or "").strip()) > 1
 ]
 
-# ========= Step 2b: Remove terms that are ONLY 1–3 Latin letters (eg, YP, abc) =========
-# (Keeps terms with Chinese/mixed chars or length >= 4)
+# ========= Step 2b: Remove terms that are ONLY 1–2 Latin letters (eg, YP, abc) =========
+# (Keeps terms with Chinese/mixed chars or length >= 3)
 terms_step2b = [
     t for t in terms_step2
     if not is_short_latin_only(t.get("term", ""))

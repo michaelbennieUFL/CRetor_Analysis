@@ -373,6 +373,12 @@ with open("../../data/biasLabeling/externalDatasets/STATE-ToxiCN/filtered_lexico
 lexicon_terms = [t["term"] for t in lexicon_json.get("terms", [])]
 
 semantic_classifiers = {
+    "Logistic Regression": SemanticClassifier(
+        model=LogisticRegression(max_iter=10000),
+        embedding_model_name=model_name,
+        debug=False,
+        threshold=custom_threshold
+    ),
     "Logistic Regression+Rules": HybridRuleSemanticClassifier(
         semantic_model=SemanticClassifier(
             model=LogisticRegression(max_iter=10000),
@@ -383,12 +389,6 @@ semantic_classifiers = {
         lexicon_terms=lexicon_terms,
         hard_override=False,
         boost_floor=0.98  # used only when hard_override=False
-    ),
-    "Logistic Regression": SemanticClassifier(
-        model=LogisticRegression(max_iter=10000),
-        embedding_model_name=model_name,
-        debug=False,
-        threshold=custom_threshold
     ),
     "SVM (C=1)+Rules": HybridRuleSemanticClassifier(
         semantic_model=SemanticClassifier(
@@ -453,14 +453,14 @@ semantic_classifiers = {
 #############################
 if __name__ == "__main__":
     # Load the combined TSV dataset
-    data_df = pd.read_csv("../../data/biasLabeling/training/combined_fix_baike_STATE_3.tsv", sep="\t")
+    data_df = pd.read_csv("../../data/biasLabeling/training/combined_fix_baike_STATE_3_ChineseHarm.tsv", sep="\t")
     # Assuming "Question" column has the text and "Potentially_Pejorative" is a label that is "Potentially" if True and "None" or empty if False.
     X = data_df["Question"].tolist()
     # Convert target: non-empty (and not "None") -> True, else False.
     y = [True if str(val).strip() not in ("", "None", "none", "nan", None) else False
          for val in data_df["Potentially_Pejorative"].tolist()]
 
-    cv = 10
+    cv = 5
 
     print("\n====== Testing Semantic Classifiers ======")
     # testAllParameters is assumed to run cross-validation tests for each classifier.
