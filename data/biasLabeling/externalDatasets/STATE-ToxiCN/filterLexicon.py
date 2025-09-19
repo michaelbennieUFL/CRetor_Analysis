@@ -56,7 +56,7 @@ def definition_has_zaimouxie(t: dict) -> bool:
     """
     Return True if the term's definition contains '在某些' (after NFKC normalization).
     """
-    return "在某些" in nfkc_lower(t.get("definition", "")) or "原本" in nfkc_lower(t.get("definition", "")) or "本意" in nfkc_lower(t.get("definition", "")) or "本为" in nfkc_lower(t.get("definition", ""))
+    return "在某些" in nfkc_lower(t.get("definition", "")) or "原本" in nfkc_lower(t.get("definition", "")) or "本意" in nfkc_lower(t.get("definition", "")) or "本为" in nfkc_lower(t.get("definition", ""))  or "多数" in nfkc_lower(t.get("definition", ""))  or "通称" in nfkc_lower(t.get("definition", "")) or "调侃" in nfkc_lower(t.get("definition", ""))
 
 def in_any_sentence(term: str, sentences: pd.Series) -> bool:
     """Check if a term appears as a substring in any sentence (literal match, not regex)."""
@@ -95,11 +95,25 @@ terms_step2c = [
     if not definition_has_zaimouxie(t)
 ]
 
-# ========= Step 3: Keep only terms that appear in at least one TSV sentence =========
-all_sentences = tsv["sentence"]
+# ========= Step 3: must appear in at least X TSV sentences =========
+MIN_SENTENCE_HITS = 3
+
+all_sentences = tsv["sentence"].astype(str)
+
+def sentence_hits(term: str, sentences: pd.Series) -> int:
+    if not term:
+        return 0
+    return int(sentences.str.contains(term, na=False, regex=False).sum())
+
+# 預先把每個 term 的句子命中數算好
+term2hits = {
+    t.get("term", ""): sentence_hits(t.get("term", ""), all_sentences)
+    for t in terms_step2c
+}
+
 terms_step3 = [
     t for t in terms_step2c
-    if in_any_sentence(t.get("term", ""), all_sentences)
+    if term2hits.get(t.get("term", ""), 0) >= MIN_SENTENCE_HITS
 ]
 
 # ========= Step 4: remove  other items (category contains 'other') =========

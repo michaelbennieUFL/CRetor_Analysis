@@ -26,11 +26,6 @@
       "definition": "对黑人男性的侮辱性用词。"
     },
     {
-      "term": "黑妹妹",
-      "category": "Racism",
-      "definition": "对黑人女性的侮辱性用词。"
-    },
-    {
       "term": "nigger",
       "category": "Racism",
       "definition": "对黑人群体的侮辱性用词。"
@@ -41,54 +36,9 @@
       "definition": "对黑人群体的侮辱性用词。"
     },
     {
-      "term": "巧克力豆",
-      "category": "Racism",
-      "definition": "巧克力豆为黑色，常用于暗指黑人群体，含贬义。"
-    },
-    {
-      "term": "嘿忍",
-      "category": "Racism",
-      "definition": "'嘿忍'是'黑人'的中文谐音，常含贬义。"
-    },
-    {
       "term": "默人",
       "category": "Racism",
       "definition": "'默'是'黑犬'的拼字，指黑色的狗，对黑人群体的侮辱性称呼。"
-    },
-    {
-      "term": "默妖",
-      "category": "Racism",
-      "definition": "'默'是'黑犬'的拼字，指黑色的狗，对黑人群体的侮辱性称呼。"
-    },
-    {
-      "term": "灭默",
-      "category": "Racism",
-      "definition": "'默'是'黑犬'的拼字，指黑色的狗，对黑人群体的迫害行为。"
-    },
-    {
-      "term": "屠默",
-      "category": "Racism",
-      "definition": "'默'是'黑犬'的拼字，指黑色的狗，对黑人群体的迫害行为。"
-    },
-    {
-      "term": "猎默",
-      "category": "Racism",
-      "definition": "'默'是'黑犬'的拼字，指黑色的狗，对黑人群体的迫害行为。"
-    },
-    {
-      "term": "杀默",
-      "category": "Racism",
-      "definition": "'默'是'黑犬'的拼字，指黑色的狗，对黑人群体的迫害行为。"
-    },
-    {
-      "term": "反默",
-      "category": "Racism",
-      "definition": "'默'是'黑犬'的拼字，指黑色的狗，对黑人群体的迫害行为。"
-    },
-    {
-      "term": "墨人",
-      "category": "Racism",
-      "definition": "'墨人'代指'黑人'，常用于代指黑人群体，含贬义。"
     },
     {
       "term": "白完",
@@ -99,16 +49,6 @@
       "term": "茶壶嘴",
       "category": "Sexism",
       "definition": "用于对男性生殖器官的比喻，常含贬义。"
-    },
-    {
-      "term": "鲍鱼",
-      "category": "Sexism",
-      "definition": "用于对女性生殖器官的比喻，常含贬义。"
-    },
-    {
-      "term": "臭鲍鱼",
-      "category": "Sexism",
-      "definition": "用于对女性生殖器官的比喻，常含贬义。"
     },
     {
       "term": "金针菇",
@@ -131,94 +71,14 @@
       "definition": "常与'河南人一起使用'，暗示河南人素质低、道德水平差。"
     },
     {
-      "term": "黑吹",
-      "category": "Racism",
-      "definition": "指一种极端崇拜和追求与黑人相关事物的社会群体。"
-    },
-    {
-      "term": "黑吹子",
-      "category": "Racism",
-      "definition": "指一种极端崇拜和追求与黑人相关事物的社会群体。"
-    },
-    {
       "term": "幕刃",
       "category": "Sexism",
       "definition": "'幕刃'是'母人'的中文谐音，是对女性群体的侮辱性用词。"
     },
     {
-      "term": "钼刃",
-      "category": "Sexism",
-      "definition": "'钼刃'是'母人'的中文谐音，是对女性群体的侮辱性用词。"
-    },
-    {
-      "term": "亩刃",
-      "category": "Sexism",
-      "definition": "'亩刃'是'母人'的中文谐音，是对女性群体的侮辱性用词。"
-    },
-    {
-      "term": "木人",
-      "category": "Sexism",
-      "definition": "'木人'是'母人'的中文谐音，是对女性群体的侮辱性用词。"
-    },
-    {
-      "term": "母豖",
-      "category": "Sexism",
-      "definition": "'母豖'指'母猪'，是对女性群体的侮辱性用词。"
-    },
-    {
-      "term": "母朱",
-      "category": "Sexism",
-      "definition": "'母朱'指'母猪'，是对女性群体的侮辱性用词。"
-    },
-    {
-      "term": "钕刃",
-      "category": "Sexism",
-      "definition": "'钕刃'是'女人'的中文谐音，是对女性群体的侮辱性用词。"
-    },
-    {
       "term": "黑鬼",
       "category": "Racism",
       "definition": "对黑人群体的侮辱性用词。"
-    },
-    {
-      "term": "黑北鼻",
-      "category": "Racism",
-      "definition": "'北鼻'是'baby'的中文谐音，对黑人群体的侮辱性用词。"
-    },
-    {
-      "term": "黑杂碎",
-      "category": "Racism",
-      "definition": "对黑人群体的侮辱性用词。"
-    },
-    {
-      "term": "黑杂种",
-      "category": "Racism",
-      "definition": "对黑人群体的侮辱性用词。"
-    },
-    {
-      "term": "黑非洲",
-      "category": "Racism, Region",
-      "definition": "对黑人群体及非洲地区的侮辱性用词。"
-    },
-    {
-      "term": "非洲佬",
-      "category": "Racism, Region",
-      "definition": "对黑人群体及非洲地区的侮辱性用词。"
-    },
-    {
-      "term": "类人",
-      "category": "Racism",
-      "definition": "灵长目猿科动物的通称，与人类亲缘关系很近，常用于讽刺黑人发育不完全，对黑人群体的侮辱性称呼。"
-    },
-    {
-      "term": "类人猿",
-      "category": "Racism",
-      "definition": "灵长目猿科动物的通称，与人类亲缘关系很近，常用于讽刺黑人发育不完全，对黑人群体的侮辱性称呼。"
-    },
-    {
-      "term": "人猿",
-      "category": "Racism",
-      "definition": "灵长目猿科动物的通称，与人类亲缘关系很近，常用于讽刺黑人发育不完全，对黑人群体的侮辱性称呼。"
     },
     {
       "term": "黑混",
@@ -229,11 +89,6 @@
       "term": "虫混",
       "category": "Racism",
       "definition": "'虫混'为'虫族混血'的简称，'虫族'代指黑人，对带有黑人血统混血群体的侮辱性用词。"
-    },
-    {
-      "term": "混黑",
-      "category": "Racism",
-      "definition": "'混黑'为'黑人混血'的简称，对带有黑人血统混血群体的侮辱性用词。"
     },
     {
       "term": "母人",
@@ -256,11 +111,6 @@
       "definition": "指令人扫兴的行为，多用于男女交往场景。"
     },
     {
-      "term": "下头男",
-      "category": "Sexism",
-      "definition": "指令人扫兴的男性。"
-    },
-    {
       "term": "txl",
       "category": "LGBTQ",
       "definition": "中文'同性恋'拼音的首字母简写，用于代指同性恋群团。"
@@ -281,16 +131,6 @@
       "definition": "用于描述对外国奉承巴结的中国人。"
     },
     {
-      "term": "蝈女",
-      "category": "Sexism",
-      "definition": "'蝈女'是'国女'的中文谐音，用于对中国女权主义者的贬义表达。"
-    },
-    {
-      "term": "国钕",
-      "category": "Sexism",
-      "definition": "'国钕'是'国女'的中文谐音，用于对中国女权主义者的贬义表达。"
-    },
-    {
       "term": "蝈籹",
       "category": "Sexism",
       "definition": "'蝈籹'是'国女'的中文谐音，用于对中国女权主义者的贬义表达。"
@@ -306,29 +146,9 @@
       "definition": "'郭女'是'国女'的中文谐音，用于对中国女权主义者的贬义表达。"
     },
     {
-      "term": "拳法",
-      "category": "Sexism",
-      "definition": "'拳法'的'拳'是'女权'中的'权'中文谐音，常用于对中国女权主义者的贬义表达。"
-    },
-    {
-      "term": "䖡壬",
-      "category": "Sexism",
-      "definition": "'䖡壬'是'女人'的中文谐音，对女性群体的侮辱性称呼。"
-    },
-    {
       "term": "女拳",
       "category": "Sexism",
       "definition": "'女拳'是'女权'的中文谐音，常用于对中国女权主义者的贬义表达。"
-    },
-    {
-      "term": "拳畜",
-      "category": "Sexism",
-      "definition": "'拳畜'指'打拳畜牲'，常用于对中国女权主义者的贬义表达。"
-    },
-    {
-      "term": "女拳王",
-      "category": "Sexism",
-      "definition": "常用于对中国女权主义者的贬义表达。"
     },
     {
       "term": "母拳",
@@ -341,47 +161,12 @@
       "definition": "'女👊'是'女权'的汉字和emoji的结合，常用于对中国女权主义者的贬义表达。"
     },
     {
-      "term": "女O",
-      "category": "Sexism",
-      "definition": "'女O'是'女权'的汉字和图形的结合，常用于对中国女权主义者的贬义表达。"
-    },
-    {
-      "term": "籹拳",
-      "category": "Sexism",
-      "definition": "'籹拳'是'女权'的中文谐音，常用于对中国女权主义者的贬义表达。"
-    },
-    {
-      "term": "女醛",
-      "category": "Sexism",
-      "definition": "'女醛'是'女权'的中文谐音，常用于对中国女权主义者的贬义表达。"
-    },
-    {
-      "term": "籹全尸",
-      "category": "Sexism",
-      "definition": "'籹全尸'是'女拳师'的中文谐音，常用于对中国女权主义者的贬义表达。"
-    },
-    {
-      "term": "拳尸",
-      "category": "Sexism",
-      "definition": "'拳尸'是'拳师'的中文谐音，常用于对中国女权主义者的贬义表达。"
-    },
-    {
-      "term": "拳虱",
-      "category": "Sexism",
-      "definition": "'拳虱'是'拳师'的中文谐音，常用于对中国女权主义者的贬义表达。"
-    },
-    {
       "term": "拳师",
       "category": "Sexism",
       "definition": "常用于对中国女权主义者的贬义表达。"
     },
     {
       "term": "烂裤裆",
-      "category": "Sexism",
-      "definition": "对一些私生活不检点甚至糜烂的女人的侮辱性表达。"
-    },
-    {
-      "term": "烂裤子",
       "category": "Sexism",
       "definition": "对一些私生活不检点甚至糜烂的女人的侮辱性表达。"
     },
@@ -401,16 +186,6 @@
       "definition": "'基'同粤语中'gay'的发音，对男同性恋群体的侮辱性表达。"
     },
     {
-      "term": "基狫",
-      "category": "LGBTQ",
-      "definition": "'基狫'是'基佬'的中文谐音，对男同性恋群体的侮辱性表达。"
-    },
-    {
-      "term": "击佬",
-      "category": "LGBTQ",
-      "definition": "'击佬'是'基佬'的中文谐音，对男同性恋群体的侮辱性表达。"
-    },
-    {
       "term": "地域黑",
       "category": "Region",
       "definition": "即地域歧视，是由于认知群体对某一地区的认知性偏差所造成的刻板印象导致的社会行为。"
@@ -421,59 +196,9 @@
       "definition": "'郭南'是'国男'的中文谐音，指中国女权主义者攻击男性的一种称谓。"
     },
     {
-      "term": "国南",
-      "category": "Sexism",
-      "definition": "'国南'是'国男'的中文谐音，指中国女权主义者攻击男性的一种称谓。"
-    },
-    {
-      "term": "烂货",
-      "category": "Sexism",
-      "definition": "带有性别贬低意味（如攻击女性道德或贞操），属于物化或人身攻击的詈词。"
-    },
-    {
-      "term": "蝻人",
-      "category": "Sexism",
-      "definition": "'蝻人'是'男人'的中文谐音，对男性群体的侮辱性称呼。"
-    },
-    {
-      "term": "男淫",
-      "category": "Sexism",
-      "definition": "'男淫'是'男人'的中文谐音，对男性群体的侮辱性称呼。"
-    },
-    {
-      "term": "蝻蛆",
-      "category": "Sexism",
-      "definition": "'蝻蛆'是'男蛆'的中文谐音，对男性群体的侮辱性称呼。"
-    },
-    {
       "term": "国楠",
       "category": "Sexism",
       "definition": "'国楠'是'国男'的中文谐音，指中国女权主义者攻击男性的一种称谓。"
-    },
-    {
-      "term": "郭朒",
-      "category": "Sexism",
-      "definition": "'郭朒'是'国女'的中文谐音，用于对中国女权主义者的贬义表达。"
-    },
-    {
-      "term": "🐑跌",
-      "category": "Racism",
-      "definition": "'🐑跌'是'洋爹'的中文谐音和emoji的结合，用于描述对某种过度崇拜或盲目追随西方文化、权威的现象，常含贬义。"
-    },
-    {
-      "term": "嘿爹",
-      "category": "Racism",
-      "definition": "'嘿爹'是'黑爹'的中文谐音，用于描述对某种过度崇拜黑人群体的现象，常含贬义。"
-    },
-    {
-      "term": "黑爹",
-      "category": "Racism",
-      "definition": "用于描述对某种过度崇拜黑人群体的现象，常含贬义。"
-    },
-    {
-      "term": "白皮猪",
-      "category": "Racism",
-      "definition": "对白人群体的侮辱性用词。"
     },
     {
       "term": "白皮",
@@ -481,99 +206,14 @@
       "definition": "对白人群体的侮辱性用词。"
     },
     {
-      "term": "姆🐶",
-      "category": "Sexism",
-      "definition": "'姆🐶'是'母狗'的中文谐音和emoji表情的结合，是对女性群体的侮辱性用词。"
-    },
-    {
-      "term": "墓垢",
-      "category": "Sexism",
-      "definition": "'墓垢'是'母狗'的中文谐音，是对女性群体的侮辱性用词。"
-    },
-    {
       "term": "母苟",
       "category": "Sexism",
       "definition": "'母苟'是'母狗'的中文谐音，是对女性群体的侮辱性用词。"
     },
     {
-      "term": "母沟",
-      "category": "Sexism",
-      "definition": "'母沟'是'母狗'的中文谐音，是对女性群体的侮辱性用词。"
-    },
-    {
       "term": "慕勾",
       "category": "Sexism",
       "definition": "'慕勾'是'母狗'的中文谐音，是对女性群体的侮辱性用词。"
-    },
-    {
-      "term": "慕√",
-      "category": "Sexism",
-      "definition": "'慕√'是'母狗'的中文谐音与字符组合，是对女性群体的侮辱性用词。"
-    },
-    {
-      "term": "亩篝",
-      "category": "Sexism",
-      "definition": "'亩篝'是'母狗'的中文谐音，是对女性群体的侮辱性用词。"
-    },
-    {
-      "term": "亩狗",
-      "category": "Sexism",
-      "definition": "'亩狗'是'母狗'的中文谐音，是对女性群体的侮辱性用词。"
-    },
-    {
-      "term": "慕🐶",
-      "category": "Sexism",
-      "definition": "'慕🐶'是'母狗'的中文谐音和emoji表情的结合，是对女性群体的侮辱性用词。"
-    },
-    {
-      "term": "目🐶",
-      "category": "Sexism",
-      "definition": "'目🐶'是'母狗'的中文谐音和emoji表情的结合，是对女性群体的侮辱性用词。"
-    },
-    {
-      "term": "母√",
-      "category": "Sexism",
-      "definition": "'母√'是'母狗'的中文谐音和符号的结合，是对女性群体的侮辱性用词。"
-    },
-    {
-      "term": "母勾",
-      "category": "Sexism",
-      "definition": "'母勾'是'母狗'的中文谐音，是对女性群体的侮辱性用词。"
-    },
-    {
-      "term": "牧狗",
-      "category": "Sexism",
-      "definition": "'牧狗'是'母狗'的中文谐音，是对女性群体的侮辱性用词。"
-    },
-    {
-      "term": "沐勾",
-      "category": "Sexism",
-      "definition": "'沐勾'是'母狗'的中文谐音，是对女性群体的侮辱性用词。"
-    },
-    {
-      "term": "母钩",
-      "category": "Sexism",
-      "definition": "'母钩'是'母狗'的中文谐音，是对女性群体的侮辱性用词。"
-    },
-    {
-      "term": "木勾",
-      "category": "Sexism",
-      "definition": "'木勾'是'母狗'的中文谐音，是对女性群体的侮辱性用词。"
-    },
-    {
-      "term": "姆坦",
-      "category": "Sexism",
-      "definition": "'姆坦'是'母坦'的中文谐音，是对体重较大的女性群体的侮辱性用词。"
-    },
-    {
-      "term": "母坦",
-      "category": "Sexism",
-      "definition": "对体重较大的女性群体的侮辱性用词。"
-    },
-    {
-      "term": "直男癌",
-      "category": "Sexism",
-      "definition": "对活在自己的世界观、价值观、审美观里,时时向别人流露出对对方的不顺眼及不满,并略带大男子主义的人的一种蔑称或调侃。"
     },
     {
       "term": "田园女权",
@@ -586,24 +226,9 @@
       "definition": "网络流行词，“中华田园女权”的简称，指要求男女平等却要男性承担主要责任，以女权为借口追求女性收益最大化的群体。"
     },
     {
-      "term": "中华田园犬",
-      "category": "Sexism",
-      "definition": "指“中华田园女权”，指要求男女平等却要男性承担主要责任，以女权为借口追求女性收益最大化的群体。"
-    },
-    {
       "term": "田园女拳",
       "category": "Sexism",
       "definition": "'田园女拳'为'田园女权'的中文谐音，“中华田园女权”的简称，指要求男女平等却要男性承担主要责任，以女权为借口追求女性收益最大化的群体。"
-    },
-    {
-      "term": "田园表",
-      "category": "Sexism",
-      "definition": "'田园表'为'田园婊'的中文谐音，指'田园女权'，“中华田园女权”的简称，指要求男女平等却要男性承担主要责任，以女权为借口追求女性收益最大化的群体。"
-    },
-    {
-      "term": "西八",
-      "category": "Region",
-      "definition": "西八（씨발），是韩语骂人的一句话，全称“席八拉马” 。网络中常用于代指韩国人，含贬义。"
     },
     {
       "term": "棒子",
@@ -611,34 +236,9 @@
       "definition": "对韩国人的侮辱性用词。"
     },
     {
-      "term": "棒男",
-      "category": "Sexism, Region",
-      "definition": "对韩国男性的侮辱性用词。"
-    },
-    {
-      "term": "棒女",
-      "category": "Sexism, Region",
-      "definition": "对韩国女性的侮辱性用词。"
-    },
-    {
-      "term": "小棒子",
-      "category": "Region",
-      "definition": "对韩国人的侮辱性用词。"
-    },
-    {
-      "term": "棒畜",
-      "category": "Region",
-      "definition": "'棒子'的衍生词，对韩国人的侮辱性用词。"
-    },
-    {
       "term": "媚黑",
       "category": "Racism",
       "definition": "描述一种极端崇拜和追求与黑人相关事物的社会现象，常含贬义。"
-    },
-    {
-      "term": "跪洋",
-      "category": "Racism",
-      "definition": "描述一种极端崇拜和追求与洋人相关事物的社会现象，常含贬义。"
     },
     {
       "term": "媚白",
@@ -651,19 +251,9 @@
       "definition": "描述一种极端崇拜和追求与黑人相关事物的社会现象，常含贬义。"
     },
     {
-      "term": "媚嘿",
-      "category": "Racism",
-      "definition": "'媚嘿'是'媚黑'的中文谐音，描述一种极端崇拜和追求与黑人相关事物的社会现象，常含贬义。"
-    },
-    {
       "term": "肖万",
       "category": "Racism",
       "definition": "指明尼阿波利斯市涉嫌暴力执法的白人警察德雷克·肖万，含有对黑人群体的贬义。"
-    },
-    {
-      "term": "郑思",
-      "category": "Racism",
-      "definition": "郑思网名'海牙蝴蝶姬'，与尼日利亚黑人结婚并生育，大力宣扬黑人优等论。网传结婚后感染艾滋去世，后被用于形容极端崇拜和追求与黑人相关事物的女性，常含贬义。"
     },
     {
       "term": "easy girl",
@@ -671,59 +261,9 @@
       "definition": "在中国常用于描述容易或主动与外国人发生性关系的女生。"
     },
     {
-      "term": "ezg",
-      "category": "Racism, Sexism",
-      "definition": "'ezg'是'easy girl'的缩写，在中国常用于描述容易或主动与外国人发生性关系的女生。"
-    },
-    {
-      "term": "骚女",
-      "category": "Sexism",
-      "definition": "对违反传统女性角色的行为模式和价值观念的女性群体的侮辱性用词。"
-    },
-    {
-      "term": "÷女",
-      "category": "Sexism",
-      "definition": "'÷女'为'处女'的谐音表达，指从未有过性行为的女生。"
-    },
-    {
-      "term": "sao货",
-      "category": "Sexism",
-      "definition": "'sao货'是'骚货'的中文拼音的变体，对违反传统女性角色的行为模式和价值观念的女性群体的侮辱性用词。"
-    },
-    {
       "term": "腐癌",
       "category": "Sexism, LGBTQ",
       "definition": "腐癌‌是指一种极端且不理智的腐文化现象，主要表现在对BL（男男之恋）的过度吹捧和对BG（男女之恋）及GL（女女之恋）的贬低。"
-    },
-    {
-      "term": "白叠",
-      "category": "Racism",
-      "definition": "'白叠'是'白爹'的中文谐音，暗示对某种过度崇拜或盲目追随白人群体的现象，常含贬义。"
-    },
-    {
-      "term": "人猿泰山",
-      "category": "Racism",
-      "definition": "原意为经典影视人物在非洲原始森林被猿猴抚养长大的人类泰山，常用于对黑人群体的侮辱性描述。"
-    },
-    {
-      "term": "锅女",
-      "category": "Racism",
-      "definition": "'锅女'是'国女'的中文谐音，用于对中国女权主义者的贬义表达。"
-    },
-    {
-      "term": "锅钕",
-      "category": "Racism",
-      "definition": "'锅钕'是'国女'的中文谐音，用于对中国女权主义者的贬义表达。"
-    },
-    {
-      "term": "江浙人种",
-      "category": "Region",
-      "definition": "由于江苏浙江为经济发达地区，部分江浙人对经济欠发达地区存在地域歧视，'江浙人种'为其余地区对这部分人的讽刺性称呼。"
-    },
-    {
-      "term": "亩语",
-      "category": "Sexism",
-      "definition": "'亩语'是'母语'的中文谐音，对女性群体的侮辱性用词。"
     },
     {
       "term": "男同",
@@ -731,59 +271,14 @@
       "definition": "对男同性恋群体的简称，常含贬义。"
     },
     {
-      "term": "南桐",
-      "category": "LGBTQ",
-      "definition": "'南桐'是'男同'的中文谐音，对男同性恋群体的简称，常含贬义。"
-    },
-    {
       "term": "媚黑女",
       "category": "Racism, Sexism",
       "definition": "对极端崇拜和追求与黑人相关事物的女性群体的侮辱性称呼。"
     },
     {
-      "term": "媚默女",
-      "category": "Racism, Sexism",
-      "definition": "对极端崇拜和追求与黑人相关事物的女性群体的侮辱性称呼。"
-    },
-    {
-      "term": "嗨人",
-      "category": "Racism",
-      "definition": "'嗨人'是'黑人'的中文谐音，对黑人群体的称呼，常含贬义。"
-    },
-    {
       "term": "龟男",
       "category": "Sexism",
       "definition": "形容那些没有自尊、愿意为女性付出一切（哪怕得不到回报）、维护女性特权的男性。"
-    },
-    {
-      "term": "娘们",
-      "category": "Sexism",
-      "definition": "汉语方言词汇，对成年女人的称谓，多数情况下含贬义。"
-    },
-    {
-      "term": "娘们儿",
-      "category": "Sexism",
-      "definition": "汉语方言词汇，对成年女人的称谓，多数情况下含贬义。"
-    },
-    {
-      "term": "脑残女",
-      "category": "Sexism",
-      "definition": "贬义词，是指荒唐的、糊涂的、无逻辑性的、不合情理的女性群体。"
-    },
-    {
-      "term": "龟仙人",
-      "category": "Sexism",
-      "definition": "指'龟男'，形容那些没有自尊、愿意为女性付出一切（哪怕得不到回报）、维护女性特权的男性。"
-    },
-    {
-      "term": "硅南",
-      "category": "Sexism",
-      "definition": "'硅南'是'龟男'的中文谐音，形容那些没有自尊、愿意为女性付出一切（哪怕得不到回报）、维护女性特权的男性。"
-    },
-    {
-      "term": "河南担",
-      "category": "Region",
-      "definition": "陕西人对河南人特有的一种称呼，常含贬义。"
     },
     {
       "term": "普信男",
@@ -801,79 +296,9 @@
       "definition": "对女性群体的侮辱性称呼。"
     },
     {
-      "term": "母猪",
-      "category": "Sexism",
-      "definition": "对女性群体的侮辱性称呼。"
-    },
-    {
-      "term": "公狗",
-      "category": "Sexism",
-      "definition": "对男性群体的侮辱性称呼。"
-    },
-    {
-      "term": "犬男",
-      "category": "Sexism",
-      "definition": "'犬男'为'舔狗男'，指毫无尊严去跪舔他人的男性。"
-    },
-    {
-      "term": "女犬",
-      "category": "Sexism",
-      "definition": "意思同'母狗'，对女性群体的侮辱性称呼。"
-    },
-    {
-      "term": "妈宝女",
-      "category": "Sexism",
-      "definition": "多用于形容成年后仍对母亲言听计从、缺乏独立生活能力和自主思想的女性。"
-    },
-    {
-      "term": "妈宝男",
-      "category": "Sexism",
-      "definition": "多用于形容成年后仍对母亲言听计从、缺乏独立生活能力和自主思想的男性。"
-    },
-    {
       "term": "婊子",
       "category": "Sexism",
       "definition": "对女性群体的侮辱性称呼。"
-    },
-    {
-      "term": "龟奴",
-      "category": "Racism",
-      "definition": "形容那些没有自尊、愿意为女性付出一切（哪怕得不到回报）、维护女性特权的男性。"
-    },
-    {
-      "term": "断袖",
-      "category": "LGBTQ",
-      "definition": "指男子因同性之爱而剪断衣袖，常用于代指男同性恋群体。"
-    },
-    {
-      "term": "断袖之癖",
-      "category": "LGBTQ",
-      "definition": "指男子因同性之爱而剪断衣袖，常用于代指男同性恋群体。"
-    },
-    {
-      "term": "龙阳之好",
-      "category": "LGBTQ",
-      "definition": "典故出自《战国策·魏策》中魏王与龙阳君的一段记载，常用于代指男同性恋群体。"
-    },
-    {
-      "term": "同杏恋",
-      "category": "LGBTQ",
-      "definition": "'同杏恋'是'同性恋'的中文谐音，常含贬义。"
-    },
-    {
-      "term": "难蔓",
-      "category": "Region",
-      "definition": "'难蔓'是'南蛮'的中文谐音，对中国南方地区人民的侮辱性称呼。"
-    },
-    {
-      "term": "喃蛮",
-      "category": "Region",
-      "definition": "'喃蛮'是'南蛮'的中文谐音，对中国南方地区人民的侮辱性称呼。"
-    },
-    {
-      "term": "蛮子",
-      "category": "Region",
-      "definition": "'蛮子'是'南蛮'的口语称呼，对中国南方地区人民的侮辱性称呼。"
     },
     {
       "term": "满子",
@@ -916,29 +341,9 @@
       "definition": "对中国南方地区人民的侮辱性称呼。"
     },
     {
-      "term": "龟♂",
-      "category": "Sexism",
-      "definition": "'龟♂'是'龟男'的中文和符号的结合，形容那些没有自尊、愿意为女性付出一切（哪怕得不到回报）、维护女性特权的男性。"
-    },
-    {
       "term": "嘿蛆",
       "category": "Racism",
       "definition": "'黑蛆'的中文谐音，对黑人群体的侮辱性用词。"
-    },
-    {
-      "term": "姆搐",
-      "category": "Sexism",
-      "definition": "'姆搐'是'母畜'的中文谐音，指雌性畜生，对女性群体的侮辱性称呼。"
-    },
-    {
-      "term": "母畜",
-      "category": "Sexism",
-      "definition": "指雌性畜生，对女性群体的侮辱性称呼。"
-    },
-    {
-      "term": "黑吉拔",
-      "category": "Racism, Sexism",
-      "definition": "'吉拔'为对男性生殖器俗称谐音，常被视为不礼貌或冒犯性的用语。'黑吉拔'是对黑人男性群体的生殖器的冒犯性称呼。"
     },
     {
       "term": "女👊",
@@ -961,16 +366,6 @@
       "definition": "对黑人群体的侮辱性用词。"
     },
     {
-      "term": "黑泥鳅",
-      "category": "Racism",
-      "definition": "对黑人群体的侮辱性用词。"
-    },
-    {
-      "term": "黑犬",
-      "category": "Racism",
-      "definition": "对黑人群体的侮辱性用词。"
-    },
-    {
       "term": "小黑",
       "category": "Racism",
       "definition": "对黑人群体的侮辱性用词。"
@@ -986,34 +381,9 @@
       "definition": "'昆仑'代表着黑色,对黑色种族奴隶的古代称呼，含贬义。"
     },
     {
-      "term": "小藓女",
-      "category": "Sexism",
-      "definition": "'小藓女'是'小仙女'的中文谐音，被用来指代那些自私自利、双标、让人厌恶的女性"
-    },
-    {
-      "term": "小酰钕",
-      "category": "Sexism",
-      "definition": "'小酰钕'是'小仙女'的中文谐音，被用来指代那些自私自利、双标、让人厌恶的女性"
-    },
-    {
-      "term": "小蚬屡",
-      "category": "Sexism",
-      "definition": "'小蚬屡'是'小仙女'的中文谐音，被用来指代那些自私自利、双标、让人厌恶的女性"
-    },
-    {
-      "term": "黑杰宝",
-      "category": "Racism, Sexism",
-      "definition": "'杰宝'为对男性生殖器俗称谐音，常被视为不礼貌或冒犯性的用语。'黑吉拔'是对黑人男性群体的生殖器的冒犯性称呼。"
-    },
-    {
       "term": "黑砸",
       "category": "Racism",
       "definition": "'黑砸'为'黑子'的中文口语谐音，常用于对黑人群体的讽刺性称呼。"
-    },
-    {
-      "term": "嘿砸",
-      "category": "Racism",
-      "definition": "'嘿砸'为'黑子'的中文口语谐音，常用于对黑人群体的讽刺性称呼。"
     },
     {
       "term": "黑帽",
@@ -1026,17 +396,7 @@
       "definition": "成都一女子婚内出轨黑人，私密视频被该黑人上传到色情网站，被称为'黑帽门'事件。"
     },
     {
-      "term": "黑猩猩劣质人",
-      "category": "Racism",
-      "definition": "对黑人群体的侮辱性用词。"
-    },
-    {
       "term": "黑猩猩",
-      "category": "Racism",
-      "definition": "对黑人群体的侮辱性用词。"
-    },
-    {
-      "term": "黑猴子",
       "category": "Racism",
       "definition": "对黑人群体的侮辱性用词。"
     },
@@ -1054,16 +414,6 @@
       "term": "慕洋",
       "category": "Region, Racism",
       "definition": "形容那些盲目崇拜外国文化、制度和价值观，而忽视甚至贬低本国文化和价值观的情况，含贬义。"
-    },
-    {
-      "term": "慕洋犬",
-      "category": "Region, Racism",
-      "definition": "形容那些盲目崇拜外国文化、制度和价值观，而忽视甚至贬低本国文化和价值观的人，含贬义。"
-    },
-    {
-      "term": "果子狸",
-      "category": "Sexism",
-      "definition": "指微博平台一知名女权博主'果子狸777'，常发表极端言论，仇视中国男性，煽动性别对抗，鼓吹女性不婚不育。"
     },
     {
       "term": "厌女",
@@ -1086,24 +436,9 @@
       "definition": "双关词，常用于打击黑社会势力，也被用于对黑人群体的迫害行为。"
     },
     {
-      "term": "反嘿",
-      "category": "Racism",
-      "definition": "'嘿'为'黑'的中文谐音，对黑人群体的迫害行为。"
-    },
-    {
-      "term": "反白",
-      "category": "Racism",
-      "definition": "对白人群体的迫害行为。"
-    },
-    {
       "term": "打黑",
       "category": "Racism",
       "definition": "双关词，常用于打击黑社会势力，也被用于对黑人群体的迫害行为。"
-    },
-    {
-      "term": "反三非",
-      "category": "Region, Racism",
-      "definition": "指那些未经合法手续而在中国非法就业、非法入境和非法居留的所有外国人的统称。"
     },
     {
       "term": "三非",
@@ -1116,64 +451,9 @@
       "definition": "指微博平台一知名女权博主，常发表极端言论，仇视中国男性，煽动性别对抗，鼓吹女性不婚不育。"
     },
     {
-      "term": "黑皮崽",
-      "category": "Racism",
-      "definition": "对黑人或有黑人血统儿童的侮辱性称呼。"
-    },
-    {
       "term": "窑姐",
       "category": "Sexism",
       "definition": "古代或近代妓女的旧称，指从事有偿卖淫、提供性服务的女性，含贬义。"
-    },
-    {
-      "term": "站街女",
-      "category": "Sexism",
-      "definition": "即'妓女'，指从事有偿卖淫、提供性服务的女性。"
-    },
-    {
-      "term": "黑驴",
-      "category": "Racism",
-      "definition": "对黑人群体的侮辱性用词。"
-    },
-    {
-      "term": "基狗",
-      "category": "LGBTQ",
-      "definition": "对同性恋群体的侮辱性用词。"
-    },
-    {
-      "term": "灵长类动物",
-      "category": "Racism",
-      "definition": "常用于对黑人群体的侮辱性用词。"
-    },
-    {
-      "term": "漏屎",
-      "category": "LGBTQ",
-      "definition": "对男同性恋群体的侮辱性用词。"
-    },
-    {
-      "term": "屠同",
-      "category": "LGBTQ",
-      "definition": "'屠杀同性恋'的缩写，对同性恋群体的仇恨用词。"
-    },
-    {
-      "term": "同癖",
-      "category": "LGBTQ",
-      "definition": "指同性恋癖好，对同性恋群体的贬义称呼。"
-    },
-    {
-      "term": "ltp",
-      "category": "LGBTQ",
-      "definition": "'ltp'即'老同癖'首字母缩写，指同性恋癖好，对同性恋群体的贬义称呼。"
-    },
-    {
-      "term": "鸡老",
-      "category": "LGBTQ",
-      "definition": "'鸡老'是'基佬'的中文谐音，对男同性恋群体的侮辱性用词。"
-    },
-    {
-      "term": "鸡佬",
-      "category": "LGBTQ",
-      "definition": "'鸡佬'是'基佬'的中文谐音，对男同性恋群体的侮辱性用词。"
     },
     {
       "term": "男童",
@@ -1181,39 +461,9 @@
       "definition": "'男童'是'男同'的中文谐音，常用于对男同性恋群体的简称，常含贬义。"
     },
     {
-      "term": "男铜",
-      "category": "LGBTQ",
-      "definition": "'男铜'是'男同'的中文谐音，常用于对男同性恋群体的简称，常含贬义。"
-    },
-    {
-      "term": "南通",
-      "category": "LGBTQ",
-      "definition": "'南通'是'男同'的中文谐音，常用于对男同性恋群体的简称，常含贬义。"
-    },
-    {
       "term": "姆蛆",
       "category": "Sexism",
       "definition": "'姆蛆'是'母蛆'的中文谐音，对女性群体的侮辱性用词。"
-    },
-    {
-      "term": "第三帝国",
-      "category": "Racism",
-      "definition": "即纳粹德国，以种族主义为核心，实施了一系列极端的社会和政治政策。"
-    },
-    {
-      "term": "小胡子",
-      "category": "Racism",
-      "definition": "某些情况下代指希特勒，以种族主义为核心，实施了一系列极端的社会和政治政策。"
-    },
-    {
-      "term": "洗头佬",
-      "category": "Racism",
-      "definition": "'洗头佬'是希特勒的中文谐音，以种族主义为核心，实施了一系列极端的社会和政治政策。"
-    },
-    {
-      "term": "德国落榜美术生",
-      "category": "Racism",
-      "definition": "某些情况下代指希特勒，以种族主义为核心，实施了一系列极端的社会和政治政策。"
     },
     {
       "term": "男拳",
@@ -1221,49 +471,9 @@
       "definition": "'男拳'是'男权'的中文谐音，用于对中国男权主义者的贬义表达。"
     },
     {
-      "term": "男拳师",
-      "category": "Sexism",
-      "definition": "用于对中国男权主义者的贬义表达。"
-    },
-    {
-      "term": "黑大人",
-      "category": "Racism",
-      "definition": "对极端崇拜和追求与黑人相关事物的社会群体的讽刺用语。"
-    },
-    {
-      "term": "默带人",
-      "category": "Racism",
-      "definition": "'默带人'是'黑大人'的中文谐音，对极端崇拜和追求与黑人相关事物的社会群体的讽刺用语。"
-    },
-    {
-      "term": "白大人",
-      "category": "Racism",
-      "definition": "对极端崇拜和追求与白人相关事物的社会群体的讽刺用语。"
-    },
-    {
       "term": "洋大人",
       "category": "Racism, Region",
       "definition": "对极端崇拜和追求与外国人相关事物的社会群体的讽刺用语。"
-    },
-    {
-      "term": "羊大人",
-      "category": "Racism, Region",
-      "definition": "'羊大人'是'洋大人'的中文谐音，对极端崇拜和追求与外国人相关事物的社会群体的讽刺用语。"
-    },
-    {
-      "term": "羊带人",
-      "category": "Racism, Region",
-      "definition": "'羊带人'是'洋大人'的中文谐音，对极端崇拜和追求与外国人相关事物的社会群体的讽刺用语。"
-    },
-    {
-      "term": "白腩",
-      "category": "Racism, Sexism",
-      "definition": "'白腩'是'白男'中文谐音，常用于对白种人男性的讽刺性称呼。"
-    },
-    {
-      "term": "白楠",
-      "category": "Racism, Sexism",
-      "definition": "'白楠'是'白男'中文谐音，常用于对白种人男性的讽刺性称呼。"
     },
     {
       "term": "白男",
@@ -1286,79 +496,14 @@
       "definition": "常用于对黑种人女性的讽刺性称呼。"
     },
     {
-      "term": "亩人",
-      "category": "Sexism",
-      "definition": "'亩人'是'母人'的中文谐音，常用于对女性群体的侮辱性称呼。"
-    },
-    {
-      "term": "牧人",
-      "category": "Sexism",
-      "definition": "'牧人'是'母人'的中文谐音，常用于对女性群体的侮辱性称呼。"
-    },
-    {
-      "term": "黄祸",
-      "category": "Racism",
-      "definition": "19世纪的一种极端民族主义理论。该理论宣扬黄种人对于白人是威胁，白人应当联合起来对付黄种人。"
-    },
-    {
       "term": "清道夫",
       "category": "Racism",
       "definition": "一种鱼类，繁殖速度快，以其余鱼类的卵为食，常用于对黑人群体的侮辱性用词。"
     },
     {
-      "term": "倪哥",
-      "category": "Racism",
-      "definition": "'倪哥'中文发音与'nigger'相近，常用于对黑人群体的侮辱性用词。"
-    },
-    {
-      "term": "尼葛",
-      "category": "Racism",
-      "definition": "'尼葛'中文发音与'nigger'相近，常用于对黑人群体的侮辱性用词。"
-    },
-    {
-      "term": "泥搁",
-      "category": "Racism",
-      "definition": "'泥搁'中文发音与'nigger'相近，常用于对黑人群体的侮辱性用词。"
-    },
-    {
-      "term": "泥鸽",
-      "category": "Racism",
-      "definition": "'泥鸽'中文发音与'nigger'相近，常用于对黑人群体的侮辱性用词。"
-    },
-    {
-      "term": "倪格",
-      "category": "Racism",
-      "definition": "'倪格'中文发音与'nigger'相近，常用于对黑人群体的侮辱性用词。"
-    },
-    {
-      "term": "泥革",
-      "category": "Racism",
-      "definition": "'泥革'中文发音与'nigger'相近，常用于对黑人群体的侮辱性用词。"
-    },
-    {
-      "term": "泥娃娃",
-      "category": "Racism",
-      "definition": "'泥'中文发音与'nigger'中的'ni'相同，常用于对黑人小孩的侮辱性用词。"
-    },
-    {
-      "term": "黑娃娃",
-      "category": "Racism",
-      "definition": "常用于对黑人小孩的侮辱性用词。"
-    },
-    {
       "term": "黑小子",
       "category": "Racism",
       "definition": "常用于对黑人小孩的侮辱性用词。"
-    },
-    {
-      "term": "尼哥",
-      "category": "Racism",
-      "definition": "'尼哥'中文发音与'nigger'相近，常用于对黑人群体的侮辱性用词。"
-    },
-    {
-      "term": "n哥",
-      "category": "Racism",
-      "definition": "'n哥'中文发音与'nigger'相近，常用于对黑人群体的侮辱性用词。"
     },
     {
       "term": "内个",
@@ -1371,34 +516,14 @@
       "definition": "对黑人群体的侮辱性称呼。"
     },
     {
-      "term": "黑虫",
-      "category": "Racism",
-      "definition": "对黑人群体的侮辱性称呼。"
-    },
-    {
       "term": "黑黑",
       "category": "Racism",
       "definition": "对黑人群体的侮辱性称呼。"
     },
     {
-      "term": "犹太狗",
-      "category": "Racism",
-      "definition": "对犹太群体的侮辱性称呼。"
-    },
-    {
-      "term": "嘿砸肿",
-      "category": "Racism",
-      "definition": "'嘿砸肿'是'黑杂种'的中文谐音，对黑人群体的侮辱性称呼。"
-    },
-    {
       "term": "嘿枸",
       "category": "Racism",
       "definition": "'嘿枸'是'黑狗'的中文谐音，对黑人群体的侮辱性称呼。"
-    },
-    {
-      "term": "黑玩意",
-      "category": "Racism",
-      "definition": "对黑人群体的侮辱性称呼。"
     },
     {
       "term": "嘿畜狌",
@@ -1411,39 +536,9 @@
       "definition": "'嘿玩意'是'黑玩意'的中文谐音，对黑人群体的侮辱性称呼。"
     },
     {
-      "term": "沃森",
-      "category": "Racism",
-      "definition": "美国著名生物学家詹姆斯·杜威·沃森，因频繁发表关于种族（人种）间智商存在差异的言论广受争议，常用于对黑人群体的侮辱性言论。"
-    },
-    {
       "term": "嘿畜",
       "category": "Racism",
       "definition": "'嘿畜'是'黑畜'的中文谐音，对黑人群体的侮辱性称呼。"
-    },
-    {
-      "term": "采摘园",
-      "category": "Racism",
-      "definition": "黑人群体在美国历史上曾被作为南方种植园主的奴隶主要采摘棉花，所以常被用作黑人群体的贬义表达。"
-    },
-    {
-      "term": "采棉花",
-      "category": "Racism",
-      "definition": "黑人群体在美国历史上曾被作为南方种植园主的奴隶主要采摘棉花，所以常被用作黑人群体的贬义表达。"
-    },
-    {
-      "term": "吃西瓜",
-      "category": "Racism",
-      "definition": "黑人群体在美国历史上曾被作为南方种植园主的奴隶，奴隶主会要求黑奴种西瓜在夏天解渴，所以常被用作黑人群体的贬义表达。"
-    },
-    {
-      "term": "眯眯眼",
-      "category": "Racism",
-      "definition": "来自于19世纪西方对华人的刻板印象。它并非是对华人相貌特征的客观形容，而是西方基于民族和意识形态优越感而对东亚人贴上的“标签”。"
-    },
-    {
-      "term": "红毛鬼子",
-      "category": "Region",
-      "definition": "原为东北人对俄罗斯人的蔑称，后流传于整个华人社会。也有时代指荷兰人和葡萄牙人。"
     },
     {
       "term": "毛子",
@@ -1451,19 +546,9 @@
       "definition": "原为东北人对俄罗斯人的蔑称，后流传于整个华人社会。"
     },
     {
-      "term": "人妖",
-      "category": "LGBTQ",
-      "definition": "泛指心理性别错位、男扮女装等非常态之人，含贬义。"
-    },
-    {
       "term": "阿三",
       "category": "Region",
       "definition": "旧时上海方言中对印度人的称呼，多含国人嘲弄印度之意。"
-    },
-    {
-      "term": "黑淫",
-      "category": "Racism",
-      "definition": "'黑淫'是'黑人'的中文谐音，'淫'解释为在男女关系上态度或行为不正当，因此用于对黑人的侮辱性称呼，暗指黑人男女关系混乱。"
     },
     {
       "term": "阿娜",
@@ -1476,16 +561,6 @@
       "definition": "'鬼母'是游戏《魔兽世界：军团再临》中的游戏角色'鬼母阿娜'的简称，因其性别为女且形象丑陋，常用于对女性群体的侮辱性称呼，尤其是体型较大的女性群体。"
     },
     {
-      "term": "鬼母阿娜",
-      "category": "Sexism",
-      "definition": "游戏《魔兽世界：军团再临》中的游戏角色，因其性别为女且形象丑陋，常用于对女性群体的侮辱性称呼，尤其是体型较大的女性群体。"
-    },
-    {
-      "term": "h人",
-      "category": "Racism",
-      "definition": "'h人'指'黑人'首字母缩写加汉字，常用于对黑人群体的称呼，含贬义。"
-    },
-    {
       "term": "接盘",
       "category": "Sexism",
       "definition": "形容男人愿意接受女人复杂的情史、堕胎等行为，并愿意娶她为妻。"
@@ -1496,34 +571,9 @@
       "definition": "形容男人愿意接受女人复杂的情史、堕胎等行为，并愿意娶她为妻。"
     },
     {
-      "term": "嗨👻",
-      "category": "Racism",
-      "definition": "'嗨👻'是'黑鬼'的中文谐音和emoji结合，对黑人群体的侮辱性称呼。"
-    },
-    {
-      "term": "嘿贵",
-      "category": "Racism",
-      "definition": "'嘿贵'是'黑鬼'的中文谐音，对黑人群体的侮辱性称呼。"
-    },
-    {
-      "term": "黑贵",
-      "category": "Racism",
-      "definition": "'黑贵'是'黑鬼'的中文谐音，对黑人群体的侮辱性称呼。"
-    },
-    {
-      "term": "嘿硅",
-      "category": "Racism",
-      "definition": "'嘿硅'是'黑鬼'的中文谐音，对黑人群体的侮辱性称呼。"
-    },
-    {
       "term": "南大人",
       "category": "Region",
       "definition": "中国南方地区由于经济发达，常对北方地区发表地域歧视言论，因此北方人用'南大人'讽刺南方群体高高在上的姿态。"
-    },
-    {
-      "term": "桑嗨仁",
-      "category": "Region",
-      "definition": "'桑嗨仁'是'上海人'中文谐音，对上海人的贬义称呼。"
     },
     {
       "term": "杂种",
@@ -1536,69 +586,14 @@
       "definition": "网络用语主要指的是中国城市上海。这一隐喻起源于2022年上海第六人民医院发布的一篇关于救治外籍患者特殊病例的文章，引发了公众对于医疗资源分配问题的讨论。"
     },
     {
-      "term": "丁丁",
-      "category": "Sexism",
-      "definition": "暗指男性生殖器官，常用于调侃和讽刺。"
-    },
-    {
-      "term": "劲夫",
-      "category": "Sexism",
-      "definition": "中国男演员蒋劲夫曾被爆出家暴女朋友的事件，常被用于形容对女性拳脚相加。"
-    },
-    {
-      "term": "洋马",
-      "category": "Sexism, Racism",
-      "definition": "多用于对西方国家女人的侮辱性称呼。"
-    },
-    {
-      "term": "一滴血原则",
-      "category": "Racism",
-      "definition": "美国在黑奴制和19世纪之前这一段时间内，被美国社会认定的一条不在联邦法里的法律，就是：哪怕你有一滴黑人的血，你就是黑人。以此来确定你应有的社会地位，该享有的权利，是否是奴隶等等社会标准。"
-    },
-    {
-      "term": "北姑",
-      "category": "Region",
-      "definition": "香港人对北方人的贬义称号。"
-    },
-    {
-      "term": "黑沙口",
-      "category": "Racism",
-      "definition": "网络流行语，是《英雄联盟》里小丑萨科（Shaco）的谐音，对黑人群体的侮辱性称呼。"
-    },
-    {
       "term": "黑杂",
       "category": "Racism",
       "definition": "对带有黑人血统的混血儿的侮辱性称呼。"
     },
     {
-      "term": "歪果仁",
-      "category": "Region",
-      "definition": "'歪果仁'是'外国人'的中文谐音，常含贬义。"
-    },
-    {
       "term": "歪果",
       "category": "Region",
       "definition": "'歪果'是'外国'的中文谐音，常含贬义。"
-    },
-    {
-      "term": "飞周人",
-      "category": "Region, Racism",
-      "definition": "'飞周人'是'非洲人'的中文谐音，常含贬义。"
-    },
-    {
-      "term": "飞舟",
-      "category": "Region",
-      "definition": "'飞舟'是'非洲'的中文谐音，常含贬义。"
-    },
-    {
-      "term": "黄巢",
-      "category": "Racism",
-      "definition": "唐朝末年农民起义领袖，大齐政权开国皇帝,曾屠杀胡人商人。"
-    },
-    {
-      "term": "冉闵",
-      "category": "Racism",
-      "definition": "十六国时期冉魏政权建立者，曾起义反胡，颁布'杀胡令'，号召汉人复仇。。"
     },
     {
       "term": "女厕所",
@@ -1609,11 +604,6 @@
       "term": "公交车",
       "category": "Sexism",
       "definition": "网络用语，用来形容生活不检点的人，想上就能上，并且非常廉价，用于暗指不自重、不洁身自爱、不自尊。"
-    },
-    {
-      "term": "王德彪",
-      "category": "Region",
-      "definition": "北京人对外地人的蔑称。"
     },
     {
       "term": "凯乐奇计划",
@@ -1636,29 +626,9 @@
       "definition": "一种传说中的类人生物，一般都有长长的尖耳。常用于对黑人群体的侮辱性称呼。"
     },
     {
-      "term": "红脖子",
-      "category": "Racism",
-      "definition": "特指美国南方乡下白人，意思等同于白人垃圾。红脖子在媒体和主流文化中被定义为贫穷落后、肮脏没文化、种族主义倾向的白人。"
-    },
-    {
-      "term": "低温人",
-      "category": "Region",
-      "definition": "指东北人，因东北地区天气寒冷得来，常含贬义。"
-    },
-    {
-      "term": "艾基",
-      "category": "LGBTQ",
-      "definition": "'艾滋病基佬'的简称，男同性恋群体为艾滋病高发群体，常用于对男同性恋群体侮辱性称呼。"
-    },
-    {
       "term": "恐同",
       "category": "LGBTQ",
       "definition": "同性恋恐惧现象、同性恋恐惧症，是指对同性性行为和同性恋者的非理智性恐惧。"
-    },
-    {
-      "term": "崆峒",
-      "category": "LGBTQ",
-      "definition": "'崆峒'是'恐同'的谐音，指同性恋恐惧现象、同性恋恐惧症，是指对同性性行为和同性恋者的非理智性恐惧。"
     },
     {
       "term": "反同",
@@ -1666,29 +636,9 @@
       "definition": "反对同性恋，是指对同性恋持否定、排斥或敌视的态度和立场。"
     },
     {
-      "term": "反铜",
-      "category": "LGBTQ",
-      "definition": "'反铜'是'反同'的谐音，指反对同性恋，是指对同性恋持否定、排斥或敌视的态度和立场。"
-    },
-    {
       "term": "撑同",
       "category": "LGBTQ",
       "definition": "来源于2013年举办的反歧视活动'撑同志反歧视'，是'反同'的反义词。"
-    },
-    {
-      "term": "砸肿",
-      "category": "Racism",
-      "definition": "'砸肿'为'杂种'的谐音，属于脏话、俗语、中国俚语、粗俗用语与忌语、恶意的辱骂，在公共场合使用会被视作非常不礼貌的行为。"
-    },
-    {
-      "term": "黑粪球",
-      "category": "Racism",
-      "definition": "对黑人群体的侮辱性称呼。"
-    },
-    {
-      "term": "黑族",
-      "category": "Racism",
-      "definition": "对黑人群体的侮辱性称呼。"
     },
     {
       "term": "黑粪",
@@ -1696,89 +646,9 @@
       "definition": "对黑人群体的侮辱性称呼。"
     },
     {
-      "term": "北佬",
-      "category": "Region",
-      "definition": "中国南方地区人民对北方地区的贬义称呼。"
-    },
-    {
-      "term": "推土机",
-      "category": "Sexism",
-      "definition": "指与身材偏胖的女生发生关系的行为。"
-    },
-    {
-      "term": "黑醋",
-      "category": "Region",
-      "definition": "'黑醋'是'黑族'的中文谐音，常用于对黑人群体的侮辱性称呼。"
-    },
-    {
-      "term": "吃尿的",
-      "category": "LGBTQ",
-      "definition": "对男同性恋群体的侮辱性用词。"
-    },
-    {
-      "term": "推土机",
-      "category": "Sexism",
-      "definition": "为ACGN次文化中衍生的一个用语。是指动漫中对各种女性角色进行邪恶的“推倒”的男性角色。"
-    },
-    {
-      "term": "京巴",
-      "category": "Region",
-      "definition": "小型犬类的一种，对北京人的侮辱性称呼。"
-    },
-    {
-      "term": "薇安妇",
-      "category": "Sexism",
-      "definition": "'薇安妇'为'慰安妇'的中文谐音，指第二次世界大战时期日本政府及其军队为顺利实施并完成侵略亚洲的战争而推行的一种军队性奴隶制度，常用于对女性的侮辱性称呼。"
-    },
-    {
       "term": "慰安妇",
       "category": "Sexism",
       "definition": "指第二次世界大战时期日本政府及其军队为顺利实施并完成侵略亚洲的战争而推行的一种军队性奴隶制度，常用于对女性的侮辱性称呼。"
-    },
-    {
-      "term": "漂亮国",
-      "category": "Region",
-      "definition": "对美国的调侃性称呼。"
-    },
-    {
-      "term": "美国佬",
-      "category": "Region",
-      "definition": "对美国人的调侃性称呼。"
-    },
-    {
-      "term": "高卢乌鸡",
-      "category": "Region, Racism",
-      "definition": "高卢雄鸡是法国的象征，'高卢乌鸡'常用于讽刺法国黑人群体占比明显提高的现象。"
-    },
-    {
-      "term": "湾湾",
-      "category": "Region",
-      "definition": "中国大陆对台湾地区的昵称，台湾地区民众认为有贬义、统战意味。"
-    },
-    {
-      "term": "弯弯",
-      "category": "Region",
-      "definition": "'弯弯'是'湾湾'的中文谐音，中国大陆对台湾地区的昵称，台湾地区民众认为有贬义、统战意味。"
-    },
-    {
-      "term": "倭寇",
-      "category": "Region",
-      "definition": "指13世纪到16世纪左右侵略朝鲜、中国沿海各地和南洋的日本海盗集团的泛称，除沿海劫掠以外主要从事中日走私贸易。后被用于对日本人的侮辱性称呼。"
-    },
-    {
-      "term": "倭狗",
-      "category": "Region",
-      "definition": "对日本人的侮辱性称呼。"
-    },
-    {
-      "term": "小日子",
-      "category": "Region",
-      "definition": "对日本人的侮辱性称呼。"
-    },
-    {
-      "term": "小鬼子",
-      "category": "Region",
-      "definition": "中国人民在抗日战争期间对日本侵略者的称呼，战争结束后演变成为华人对日本侵略者的称呼。"
     },
     {
       "term": "日本鬼子",
@@ -1786,74 +656,14 @@
       "definition": "中国人民在抗日战争期间对日本侵略者的称呼，战争结束后演变成为华人对日本侵略者的称呼。"
     },
     {
-      "term": "百越",
-      "category": "Region",
-      "definition": "指古代中国南方沿海一带古越族人分布的地区，常被用于指代南方沿海地区，含贬义。"
-    },
-    {
-      "term": "陕蛋蛋",
-      "category": "Region",
-      "definition": "对陕西人的侮辱性称呼。"
-    },
-    {
-      "term": "胡建",
-      "category": "Region",
-      "definition": "'胡建'是'福建'的中文谐音，常用于指代福建，含贬义。"
-    },
-    {
-      "term": "东百",
-      "category": "Region",
-      "definition": "'东百'是'东北'的中文谐音，常用于指代东北地区，含贬义。"
-    },
-    {
       "term": "九头鸟",
       "category": "Region",
       "definition": "来源于“天上九头鸟，地上湖北佬”的谚语，影射湖北人好战、不团结、精明等。"
     },
     {
-      "term": "山越猴",
-      "category": "Region",
-      "definition": "对浙江人的侮辱性称呼。"
-    },
-    {
-      "term": "东夷",
-      "category": "Region",
-      "definition": "中囯古代中原对东部各部落的统称，对东部地区的贬义称呼。"
-    },
-    {
-      "term": "西戎",
-      "category": "Region",
-      "definition": "中囯古代中原对西部各部落的统称，对西部地区的贬义称呼。"
-    },
-    {
-      "term": "北狄",
-      "category": "Region",
-      "definition": "中囯古代中原对北方各部落的统称，对北方地区的贬义称呼。"
-    },
-    {
-      "term": "南宋人",
-      "category": "Region",
-      "definition": "指江苏人，对具有优越感江苏人的讽刺称呼。"
-    },
-    {
       "term": "支那",
       "category": "Region",
       "definition": "近代日本侵略者对中国的蔑称。"
-    },
-    {
-      "term": "帝都",
-      "category": "Region",
-      "definition": "由于北京作为中国多个朝代的首都，对北京的调侃性称呼。"
-    },
-    {
-      "term": "魔都",
-      "category": "Region",
-      "definition": "出自曾旅居上海的日本作家村松梢风出版小说《魔都》，对上海的调侃性称呼。"
-    },
-    {
-      "term": "侉子",
-      "category": "Region",
-      "definition": "指说话带很重的外地口音的人，通常带有轻蔑和嘲笑的意味，是一种不礼貌的称呼"
     },
     {
       "term": "香蕉人",
