@@ -26,6 +26,8 @@ from tqdm import tqdm
 import cupy as cp
 from dask_cuda import LocalCUDACluster
 from dask.distributed import Client
+from itertools import cycle
+
 
 class ThresholdClassifier(BaseEstimator):
     def __init__(self, base_clf=None, threshold: float = 0.5):
@@ -97,21 +99,32 @@ def main():
 
 
     def _proba_chunk(model, X_host_chunk):
-        X_dev = cp.asarray(X_host_chunk)               # send chunk to this worker's GPU
+        X_dev = cp.asarray(X_host_chunk,dtype=cp.float32)               # send chunk to this worker's GPU
         p = model.predict_proba(X_dev)[:, 1]           # cuML SVC on GPU
         return cp.asnumpy(p)                           # return to host for concatenation
 
     # split inference rows roughly evenly across workers
-    chunks = np.array_split(Xinfer, n_workers)
+    chunks = np.array_split(Xinfer, n_workers*8)
 
-    # pin each chunk to a different worker/GPU for parallelism
+    from itertools import cycle
+    worker_cycle = cycle(workers)
+
+    # submit all chunks, round robin to workers
     futures = [
-        client.submit(_proba_chunk, model_b, chunk, workers=[w], pure=False)
-        for chunk, w in zip(chunks, workers)
+        client.submit(_proba_chunk, model_b, chunk, workers=[next(worker_cycle)], pure=False)
+        for chunk in chunks
     ]
+
     probs_parts = client.gather(futures)
     probs = np.concatenate(probs_parts)
+
+    # sanity check
+    if probs.shape[0] != Xinfer.shape[0]:
+        raise SystemExit(f"Probs len {probs.shape[0]} != Xinfer rows {Xinfer.shape[0]}")
+
     preds = (probs >= args.threshold).astype(int)
+
+
 
     augmented, possibly = [], []
     for row, p, lbl in tqdm(zip(meta_rows, probs, preds), total=len(meta_rows), desc="Writing"):
