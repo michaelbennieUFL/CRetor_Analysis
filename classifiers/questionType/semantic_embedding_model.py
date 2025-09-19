@@ -373,6 +373,13 @@ with open("../../data/biasLabeling/externalDatasets/STATE-ToxiCN/filtered_lexico
 lexicon_terms = [t["term"] for t in lexicon_json.get("terms", [])]
 
 semantic_classifiers = {
+    
+        "SVM (C=0.1)": SemanticClassifier(
+        model=SVC(C=0.1, probability=True, random_state=42),
+        embedding_model_name=model_name,
+        debug=False,
+        threshold=custom_threshold
+    ),
     "Logistic Regression": SemanticClassifier(
         model=LogisticRegression(max_iter=10000),
         embedding_model_name=model_name,
@@ -401,12 +408,7 @@ semantic_classifiers = {
         hard_override=False,
         boost_floor=0.98  # used only when hard_override=False
     ),
-    "SVM (C=1)": SemanticClassifier(
-        model=SVC(C=1, probability=True, random_state=42),
-        embedding_model_name=model_name,
-        debug=False,
-        threshold=custom_threshold
-    ),
+
     "SVM (Linear Kernel)": SemanticClassifier(
         model=SVC(kernel='linear', probability=True),
         embedding_model_name=model_name,
@@ -460,7 +462,7 @@ if __name__ == "__main__":
     y = [True if str(val).strip() not in ("", "None", "none", "nan", None) else False
          for val in data_df["Potentially_Pejorative"].tolist()]
 
-    cv = 5
+    cv = 10
 
     print("\n====== Testing Semantic Classifiers ======")
     # testAllParameters is assumed to run cross-validation tests for each classifier.
