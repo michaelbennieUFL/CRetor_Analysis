@@ -101,24 +101,9 @@
       "definition": "指中国女权主义者攻击男性的一种称谓。"
     },
     {
-      "term": "国女",
-      "category": "Sexism",
-      "definition": "对应'国男'，指中国男性攻击某些女性群体的一种称谓。"
-    },
-    {
-      "term": "下头",
-      "category": "Sexism",
-      "definition": "指令人扫兴的行为，多用于男女交往场景。"
-    },
-    {
       "term": "txl",
       "category": "LGBTQ",
       "definition": "中文'同性恋'拼音的首字母简写，用于代指同性恋群团。"
-    },
-    {
-      "term": "公交车",
-      "category": "Sexism",
-      "definition": "常用于对生活不检点的女性群体的侮辱性用词。"
     },
     {
       "term": "媚外",
@@ -266,11 +251,6 @@
       "definition": "腐癌‌是指一种极端且不理智的腐文化现象，主要表现在对BL（男男之恋）的过度吹捧和对BG（男女之恋）及GL（女女之恋）的贬低。"
     },
     {
-      "term": "男同",
-      "category": "LGBTQ",
-      "definition": "对男同性恋群体的简称，常含贬义。"
-    },
-    {
       "term": "媚黑女",
       "category": "Racism, Sexism",
       "definition": "对极端崇拜和追求与黑人相关事物的女性群体的侮辱性称呼。"
@@ -292,11 +272,6 @@
     },
     {
       "term": "母狗",
-      "category": "Sexism",
-      "definition": "对女性群体的侮辱性称呼。"
-    },
-    {
-      "term": "婊子",
       "category": "Sexism",
       "definition": "对女性群体的侮辱性称呼。"
     },
@@ -351,16 +326,6 @@
       "definition": "'女👊'是'女权'的中文和emoji的结合，常用于对中国女权主义者的贬义表达。"
     },
     {
-      "term": "奇趣蛋",
-      "category": "Sexism",
-      "definition": "形容某些身高不高却对男友身高有要求的女生。"
-    },
-    {
-      "term": "同志",
-      "category": "LGBTQ",
-      "definition": "对同性恋群体的隐晦称呼。"
-    },
-    {
       "term": "黑蛆",
       "category": "Racism",
       "definition": "对黑人群体的侮辱性用词。"
@@ -369,11 +334,6 @@
       "term": "小黑",
       "category": "Racism",
       "definition": "对黑人群体的侮辱性用词。"
-    },
-    {
-      "term": "烧鸡",
-      "category": "Sexism",
-      "definition": "'烧'和'鸡'分别是'骚'和'妓'的中文谐音，对女性群体的侮辱性称呼。"
     },
     {
       "term": "昆仑奴",
@@ -394,11 +354,6 @@
       "term": "黑帽门",
       "category": "Racism",
       "definition": "成都一女子婚内出轨黑人，私密视频被该黑人上传到色情网站，被称为'黑帽门'事件。"
-    },
-    {
-      "term": "黑猩猩",
-      "category": "Racism",
-      "definition": "对黑人群体的侮辱性用词。"
     },
     {
       "term": "黑命贵",
@@ -432,11 +387,6 @@
     },
     {
       "term": "反黑",
-      "category": "Racism",
-      "definition": "双关词，常用于打击黑社会势力，也被用于对黑人群体的迫害行为。"
-    },
-    {
-      "term": "打黑",
       "category": "Racism",
       "definition": "双关词，常用于打击黑社会势力，也被用于对黑人群体的迫害行为。"
     },
@@ -591,19 +541,9 @@
       "definition": "对带有黑人血统的混血儿的侮辱性称呼。"
     },
     {
-      "term": "歪果",
-      "category": "Region",
-      "definition": "'歪果'是'外国'的中文谐音，常含贬义。"
-    },
-    {
       "term": "女厕所",
       "category": "Sexism",
       "definition": "指微博，其女性用户偏多。一些男性用户认为女性用户在微博上的行为和言论不如男性用户那样理性或文明，因此用“女厕所”来贬低和嘲笑女性用户。"
-    },
-    {
-      "term": "公交车",
-      "category": "Sexism",
-      "definition": "网络用语，用来形容生活不检点的人，想上就能上，并且非常廉价，用于暗指不自重、不洁身自爱、不自尊。"
     },
     {
       "term": "凯乐奇计划",
@@ -659,11 +599,6 @@
       "term": "九头鸟",
       "category": "Region",
       "definition": "来源于“天上九头鸟，地上湖北佬”的谚语，影射湖北人好战、不团结、精明等。"
-    },
-    {
-      "term": "支那",
-      "category": "Region",
-      "definition": "近代日本侵略者对中国的蔑称。"
     },
     {
       "term": "香蕉人",
