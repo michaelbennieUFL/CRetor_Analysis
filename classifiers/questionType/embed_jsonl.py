@@ -10,7 +10,7 @@ from itertools import islice
 import math, gc
 import numpy as np
 from sentence_transformers import SentenceTransformer
-
+import pandas as pd
 os.environ.pop("TRANSFORMERS_CACHE", None)  
 
 def chunked(iterable, size):
@@ -83,18 +83,21 @@ def sanitize_text(v: Any) -> str:
 
 def load_tsv(path: str) -> Tuple[List[Dict[str, Any]], List[str]]:
     # very simple TSV reader (no pandas dependency)
-    rows = []
-    with open(path, "r", encoding="utf-8") as f:
-        header = f.readline().rstrip("\n")
-        cols = header.split("\t")
-        for line in f:
-            line = line.rstrip("\n")
-            if not line: continue
-            parts = line.split("\t")
-            # pad if short
-            parts += [""] * max(0, len(cols) - len(parts))
-            row = {cols[i]: parts[i] for i in range(len(cols))}
-            rows.append(row)
+    try:
+        df = pd.read_csv(path, sep='\t')
+    except Exception as e:
+        print(f"Error reading TSV file with pandas: {e}")
+        # Return empty structures if file reading fails
+        return [], []
+    
+    # 1. Get the column names (header) as a list of strings
+    cols = df.columns.tolist()
+    
+    # 2. Convert the DataFrame rows into a list of dictionaries (records).
+    # The 'records' orientation outputs a list of dictionaries, where each
+    # dictionary is a row with column names as keys.
+    rows = df.to_dict('records')
+    
     return rows, cols
 
 def read_json_or_jsonl(path: str) -> List[Dict[str, Any]]:
@@ -133,7 +136,7 @@ def main():
     ap.add_argument("--input", required=True, help="Path to .tsv / .json / .jsonl")
     ap.add_argument("--out-dir", required=True, help="Output directory")
     ap.add_argument("--embedding-model", default="thenlper/gte-base-zh", help="SentenceTransformer hub name")
-    ap.add_argument("--batch-size", type=int, default=512, help="Batch size PER GPU.") # Clarified help text
+    ap.add_argument("--batch-size", type=int, default=256, help="Batch size PER GPU.") # Clarified help text
 
     # TSV-specific
     ap.add_argument("--tsv-text-col", default="Question", help="Text column for TSV")
@@ -141,7 +144,18 @@ def main():
 
     # JSON-specific
     ap.add_argument("--json-text-cols", nargs="+", default=["title", "desc"], help="Ordered text cols for JSON/JSONL")
-
+    
+    ap.add_argument(
+        "--embed-dim",
+        type=int,
+        default=512,
+        help=(
+            "Per-prompt embedding dimension to keep (crop from the left). "
+            "Use -1 to keep full model dimension."
+        ),
+    )
+    
+    
     args = ap.parse_args()
     ensure_dir(args.out_dir)
 
@@ -203,8 +217,8 @@ def main():
         # ORIGINAL
     emb1 = encode_stream_mp(
         model, texts_original, pool,
-        batch_size=min(args.batch_size, 512),     # lower if you still OOM
-        outer_chunk_size=6000,                   # tune to fit your GPUs
+        batch_size=min(args.batch_size, 128),     # lower if you still OOM
+        outer_chunk_size=3000,                   # tune to fit your GPUs
         fp16=True,
         max_seq_len=1024,
         desc="Embedding original texts"
@@ -213,8 +227,8 @@ def main():
     # EN-PROMPT
     emb2 = encode_stream_mp(
         model, texts_prompt_eng, pool,
-        batch_size=min(args.batch_size, 512),
-        outer_chunk_size=6000,
+        batch_size=min(args.batch_size, 128),
+        outer_chunk_size=3000,
         fp16=True,
         max_seq_len=1024,
         desc="Embedding English-prompted texts"
@@ -223,8 +237,8 @@ def main():
     # ZH-PROMPT
     emb3 = encode_stream_mp(
         model, texts_prompt_zh, pool,
-        batch_size=min(args.batch_size, 512),
-        outer_chunk_size=6000,
+        batch_size=min(args.batch_size, 128),
+        outer_chunk_size=3000,
         fp16=True,
         max_seq_len=1024,
         desc="Embedding Chinese-prompted texts"
@@ -235,9 +249,32 @@ def main():
     model.stop_multi_process_pool(pool)
     print("Multi-GPU pool stopped.")
 
+    
+    embed_dim = int(args.embed_dim)
+    base_dim = emb1.shape[1]
+
+    if embed_dim > 0:
+        if embed_dim > base_dim:
+            raise SystemExit(
+                f"--embed-dim={embed_dim} is larger than model dimension {base_dim}"
+            )
+        emb1 = emb1[:, :embed_dim]
+        emb2 = emb2[:, :embed_dim]
+        emb3 = emb3[:, :embed_dim]
+        final_dim = embed_dim
+    else:
+        # embed_dim <= 0 => keep full model dimension
+        final_dim = base_dim
+    
+    
     # 5. Concatenate the results
     X = np.concatenate([emb1, emb2, emb3], axis=1).astype(np.float32)
+    
+    
+    print(f"Using per-prompt embedding dimension: {final_dim}")
 
+    
+    
     # --- File writing logic remains the same ---
     # write meta.jsonl
     meta_path = os.path.join(args.out_dir, "meta.jsonl")
