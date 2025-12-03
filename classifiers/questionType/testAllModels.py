@@ -210,7 +210,7 @@ def main():
     start_heartbeat("TestAllModels", every_sec=60*5)
 
     # ---- config you can tweak ----
-    data_path = "../../data/biasLabeling/training/combined_fix6.tsv"
+    data_path = "../../data/biasLabeling/training/combined_fix_baike_STATE_3_ChineseHarm_ToxiCN_MM_ChineseHarm.tsv"
     text_col = "Question"
     label_col = "Potentially_Pejorative"
     cv = 10
