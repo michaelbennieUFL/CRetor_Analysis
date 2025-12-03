@@ -6,7 +6,7 @@ from pathlib import Path
 
 # ========= Paths =========
 LEXICON_PATH = Path("annotated lexicon.json")
-TSV_PATH     = Path("combined_fix_baike_STATE_3_ChineseHarm_ToxiCN_MM.tsv")
+TSV_PATH     = Path("combined_fix_baike_STATE_3_ChineseHarm_ToxiCN_MM_ChineseHarm.tsv")
 OUTPUT_JSON  = Path("filtered_lexicon.json")
 
 # ========= Load data =========
