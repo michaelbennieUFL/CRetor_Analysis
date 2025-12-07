@@ -2,7 +2,7 @@ import json
 from datasets import load_dataset
 
 # 1. 指定数据集信息
-DATASET_NAME = 'bzb2023/Zhihu-KOL-More-Than-100-Upvotes'
+DATASET_NAME = 'wangrui6/Zhihu-KOL'
 SPLIT_NAME = 'train'  # split名称为 'train'
 OUTPUT_FILE = 'Zhihu-KOL-custom.jsonl'
 
